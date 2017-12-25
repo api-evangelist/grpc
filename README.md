@@ -1,37 +1,6 @@
-## Welcome to GitHub Pages
+#Contributing to API Evangelist
+Spot something wrong, like a typo, broken link, or another type of mistake? [API Evangelist](apievangelist.com) is driven by GitHub, so feel free to fork, fix, and issue a pull request.
 
-You can use the [editor on GitHub](https://github.com/api-evangelist/grpc/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Have an idea for a story? Anyone can submit stories to API Evangelist—all you do is submit a pull request on the GitHub repo that runs the site. Obviously, stories have to meet Kin's standards, so be sure what you write fits with both the content and tone of the site, and be sure to note that you're making a guest post. It might help to be familiar with [Jekyll](https://help.github.com/articles/using-jekyll-with-pages/), and look in the _posts directory for examples to follow. You can write in either HTML or Markdown, whichever is easiest for you.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/api-evangelist/grpc/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Thanks for paying attention!

@@ -1,0 +1,47 @@
+name: API Evangelist - Acquisitions
+description: This is my research into API acquisitions, as part of API Evangelist industry monitoring.
+image: http://s3.amazonaws.com/kinlane-productions/api-evangelist/t-shirts/KL_InApiWeTrust-1000.png
+tags:
+  - API
+  - Acquisitions
+created: "2017-06-24"
+modified: "2017-06-24"
+url: https://acquisitions.apievangelist.com/apis.json
+specificationVersion: "0.14"
+apis:
+  - name: Blog API
+    description: This is my simple API for accessing blog posts as part of this research.
+    image: https://s3.amazonaws.com/kinlane-productions/bw-icons/bw-blog-icon.png
+    humanURL: http://acquisitions.apievangelist.com/
+    baseURL: http://acquisitions.apievangelist.com/
+    tags:
+      - Blog
+    properties:
+      - type: x-openapi
+        url: http://acquisitions.apievangelist.com/apis/blogs/openapi.json
+      - type: x-atom
+        url: http://acquisitions.apievangelist.com/feeds/blogs/atom.xml
+  - name: News API
+    description: This is my simple API for accessing news stories I've curated as part of this research.
+    image: https://s3.amazonaws.com/kinlane-productions/bw-icons/bw-news-icon.png
+    humanURL: http://acquisitions.apievangelist.com/
+    baseURL: http://acquisitions.apievangelist.com/
+    tags:
+      - News
+    properties:
+      - type: x-openapi
+        url: http://acquisitions.apievangelist.com/apis/news/openapi.json
+      - type: x-atom
+        url: http://acquisitions.apievangelist.com/feeds/news/atom.xml
+x-common:
+  - type: x-support
+    url: https://github.com/api-evangelist/acquisitions/issues
+  - type: x-documentation
+    url: http://acquisitions.apievangelist.com/documentation/
+  - type: x-github-repo
+    url: https://github.com/api-evangelist/acquisitions
+include: []
+maintainers:
+  - FN: Kin Lane
+    x-twitter: apievangelist
+    email: info@apievangelist.com

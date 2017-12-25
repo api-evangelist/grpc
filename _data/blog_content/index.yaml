@@ -1,0 +1,11 @@
+- title: GraphQL API Blog
+  image: 'https://s3.amazonaws.com/kinlane-productions/bw-icons/bw-blog-icon.png'
+  header: >-
+    These are the blog posts I've writen on API Evangelist that I've tagged as
+    "GraphQL". Providing another approach providing access to our resources, alongside REST, and other methodologis.
+  footer: >-
+    If you have a story you think I should telling about I recommend you write
+    up the thought on your own blog and share a link with me, or feel free to
+    submit a Github issue on this research project's repository, or use of the
+    other channels available on the contact page.
+  tags: Acquisitions
