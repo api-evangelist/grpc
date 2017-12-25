@@ -5,4 +5,52 @@
   url: http://nordicapis.com/?p=6549
   domain: nordicapis.com
   image: ""
+- curated_id: aTKLPW9AeQAh09DpOW/0/mK2tQUNNgIyAi3xy7MVsb4=_15d82227712:36d740e:9493fdce
+  item_date: "2017-07-26 14:58:56"
+  title: REST v. gRPC
+  url: https://husobee.github.io/golang/rest/grpc/2016/05/28/golang-rest-v-grpc.html
+  domain: husobee.github.io
+  image: ""
+- curated_id: FZ/2GLZp/a8FriFm6BqxYgMelBuYPP5oD17BctyF8kM=_15e7e8dfcd0:cb26:803daed2
+  item_date: "2017-09-13 10:37:24"
+  title: GraphQL & gRPC (Part 1)
+  url: https://medium.com/p/54d92a109619
+  domain: medium.com
+  image: ""
+- curated_id: AxQQtvE65+QaqkYOryE+b2QKezSYDbTCnNIX6p/weC0=_15e882a9f48:338e:803daed2
+  item_date: "2017-09-15 17:50:46"
+  title: Using Protocol Buffers with API Gateway and AWS Lambda
+  url: https://medium.com/p/22c3804f3e76
+  domain: medium.com
+  image: ""
+- curated_id: rxLnjiJudc56FbZKrZ0crrg2UUWdKV8knoKwhWKNfS4=_15ea01c1c85:320b9a9:4cab23bc
+  item_date: "2017-09-20 08:15:29"
+  title: Using gRPC in Python
+  url: https://blog.codeship.com/?p=5566
+  domain: blog.codeship.com
+  image: ""
+- curated_id: aTKLPW9AeQAh09DpOW/0/mK2tQUNNgIyAi3xy7MVsb4=_15f3c0f07e5:74f649a:4d363ef0
+  item_date: "2017-10-20 05:28:46"
+  title: GitHub
+  url: https://github.com/njpatel/grpcc
+  domain: github.com
+  image: ""
+- curated_id: q2q2EWvhwTr2G72+2bmzQ5IFpAlRi9P7s4CyaWlqDGs=_1604cc83275:1c6d59:c8ea36f9
+  item_date: "2017-12-12 14:11:14"
+  title: "HTTP/2 and gRPC\u200A\u2014\u200AThe Next Generation of Microservices Interactions"
+  url: https://medium.com/p/aff4ffa6faed
+  domain: medium.com
+  image: ""
+- curated_id: +wllXwAWibyyK4ZpYrxjWagJnKv2gH2aYkyPBeUtQA4=_16052c4892e:5c90c0:9d76d584
+  item_date: "2017-12-13 18:04:57"
+  title: Adding gRPC to Neo4j
+  url: http://maxdemarzi.com/?p=4173
+  domain: maxdemarzi.com
+  image: ""
+- curated_id: rxLnjiJudc56FbZKrZ0crrg2UUWdKV8knoKwhWKNfS4=_16079e10839:e3ebd9:7157a206
+  item_date: "2017-12-21 08:15:29"
+  title: Exploring Security, Metrics, and Error
+  url: https://blog.codeship.com/?p=5924
+  domain: blog.codeship.com
+  image: ""
 ...
