@@ -47,4 +47,10 @@
   url: https://blog.codeship.com/?p=5924
   domain: blog.codeship.com
   image: ""
+- curated_id: 53UYdSIjaP6vd+2Bz1ivn3GdkSivxwzyAAG6WfdGv7o=_16235a9668e:1bca92c:34f43e70
+  item_date: "2018-03-17 13:30:16"
+  title: Announcing gRPC Support in NGINX
+  url: https://www.nginx.com/?p=56262
+  domain: www.nginx.com
+  image: ""
 ...
