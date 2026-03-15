@@ -12,5 +12,43 @@ tags:
 - Microservices
 created: '2025'
 modified: '2025'
-apis: []
-common: []
+apis:
+- name: gRPC-Web Proxy API
+  description: >-
+    OpenAPI specification for gRPC-Web proxy endpoints covering health
+    checking, server reflection, and channelz introspection services
+    exposed over HTTP for browser-based and REST clients.
+  url: https://grpc.io/docs/platforms/web/
+  tags:
+  - Health Checking
+  - Reflection
+  - Channelz
+  - gRPC-Web
+  properties:
+  - type: OpenAPI
+    url: openapi.yml
+common:
+- name: gRPC JSON Schema
+  description: >-
+    JSON Schema definitions for gRPC service definitions, health check
+    responses, and channelz channel and server statistics.
+  tags:
+  - JSON Schema
+  - Service Definition
+  - Health Check
+  - Channelz
+  properties:
+  - type: JSONSchema
+    url: json-schema.yml
+- name: gRPC JSON-LD Context
+  description: >-
+    JSON-LD context mapping gRPC concepts such as services, methods,
+    health checks, channels, and servers to Schema.org and linked
+    data vocabularies.
+  tags:
+  - JSON-LD
+  - Linked Data
+  - Semantic Web
+  properties:
+  - type: JSON-LD
+    url: context.jsonld

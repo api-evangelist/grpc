@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "grpc": "https://grpc.io/docs/what-is-grpc/",
+    "protobuf": "https://protobuf.dev/",
+    "http2": "https://httpwg.org/specs/rfc9113.html",
+    "wdt": "https://www.wikidata.org/wiki/",
+
+    "GrpcService": {
+      "@id": "grpc:ServiceDefinition",
+      "@type": "SoftwareApplication",
+      "sameAs": "wdt:Q110658887"
+    },
+    "GrpcMethod": {
+      "@id": "grpc:MethodDefinition",
+      "@type": "Action"
+    },
+    "HealthCheck": {
+      "@id": "grpc:HealthCheckResponse",
+      "@type": "MonitorAction",
+      "sameAs": "wdt:Q1127126"
+    },
+    "Channel": {
+      "@id": "grpc:ChannelStats",
+      "@type": "SoftwareApplication"
+    },
+    "Server": {
+      "@id": "grpc:ServerStats",
+      "@type": "SoftwareApplication"
+    },
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+    "identifier": "schema:identifier",
+
+    "fullyQualifiedName": {
+      "@id": "grpc:fullyQualifiedName",
+      "@type": "xsd:string",
+      "subPropertyOf": "schema:identifier"
+    },
+    "package": {
+      "@id": "protobuf:package",
+      "@type": "xsd:string"
+    },
+    "protoFile": {
+      "@id": "protobuf:file",
+      "@type": "schema:DigitalDocument"
+    },
+
+    "inputType": {
+      "@id": "grpc:inputType",
+      "@type": "@id",
+      "subPropertyOf": "schema:object"
+    },
+    "outputType": {
+      "@id": "grpc:outputType",
+      "@type": "@id",
+      "subPropertyOf": "schema:result"
+    },
+    "clientStreaming": {
+      "@id": "grpc:clientStreaming",
+      "@type": "xsd:boolean"
+    },
+    "serverStreaming": {
+      "@id": "grpc:serverStreaming",
+      "@type": "xsd:boolean"
+    },
+
+    "healthStatus": {
+      "@id": "grpc:healthStatus",
+      "@type": "xsd:string",
+      "subPropertyOf": "schema:serverStatus"
+    },
+    "serviceName": {
+      "@id": "grpc:serviceName",
+      "@type": "xsd:string",
+      "subPropertyOf": "schema:name"
+    },
+
+    "channelId": {
+      "@id": "grpc:channelId",
+      "@type": "xsd:integer",
+      "subPropertyOf": "schema:identifier"
+    },
+    "serverId": {
+      "@id": "grpc:serverId",
+      "@type": "xsd:integer",
+      "subPropertyOf": "schema:identifier"
+    },
+    "connectivityState": {
+      "@id": "grpc:connectivityState",
+      "@type": "xsd:string"
+    },
+    "target": {
+      "@id": "grpc:target",
+      "@type": "xsd:string",
+      "subPropertyOf": "schema:url"
+    },
+
+    "callsStarted": {
+      "@id": "grpc:callsStarted",
+      "@type": "xsd:integer",
+      "subPropertyOf": "schema:interactionCount"
+    },
+    "callsSucceeded": {
+      "@id": "grpc:callsSucceeded",
+      "@type": "xsd:integer",
+      "subPropertyOf": "schema:interactionCount"
+    },
+    "callsFailed": {
+      "@id": "grpc:callsFailed",
+      "@type": "xsd:integer",
+      "subPropertyOf": "schema:interactionCount"
+    },
+    "lastCallStartedTimestamp": {
+      "@id": "grpc:lastCallStartedTimestamp",
+      "@type": "xsd:dateTime",
+      "subPropertyOf": "schema:dateModified"
+    },
+
+    "listenAddress": {
+      "@id": "grpc:listenAddress",
+      "@type": "xsd:string"
+    },
+    "listenPort": {
+      "@id": "grpc:listenPort",
+      "@type": "xsd:integer"
+    },
+
+    "usesProtocol": {
+      "@id": "schema:applicationCategory",
+      "comment": "gRPC uses HTTP/2 as its transport protocol"
+    },
+    "serializationFormat": {
+      "@id": "schema:encodingFormat",
+      "comment": "gRPC uses Protocol Buffers as the default serialization format"
+    },
+
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/"
+  }
+}

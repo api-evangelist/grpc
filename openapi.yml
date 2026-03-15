@@ -1,0 +1,486 @@
+openapi: 3.0.3
+info:
+  title: gRPC-Web Proxy API
+  description: >-
+    OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript
+    client library that enables browser-based applications to communicate with
+    gRPC services through an intermediary proxy. The proxy translates HTTP/1.1
+    and HTTP/2 requests into native gRPC calls, exposing health checking,
+    reflection, and channelz services over RESTful HTTP endpoints.
+  version: 1.0.0
+  contact:
+    name: gRPC Authors
+    url: https://grpc.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: gRPC Documentation
+  url: https://grpc.io/docs/
+servers:
+  - url: https://localhost:8080
+    description: Local gRPC-Web proxy
+paths:
+  /grpc.health.v1.Health/Check:
+    post:
+      operationId: healthCheck
+      summary: Check service health
+      description: >-
+        Performs a health check against a specific gRPC service or the
+        overall server. Implements the gRPC Health Checking Protocol
+        as defined in the grpc.health.v1 package.
+      tags:
+        - Health Checking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthCheckRequest'
+      responses:
+        '200':
+          description: Health check response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+        '404':
+          description: Service not found
+        '503':
+          description: Service unhealthy
+  /grpc.health.v1.Health/Watch:
+    post:
+      operationId: healthWatch
+      summary: Watch service health changes
+      description: >-
+        Opens a server-streaming connection that sends health status
+        updates whenever the health of the requested service changes.
+      tags:
+        - Health Checking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthCheckRequest'
+      responses:
+        '200':
+          description: Stream of health check responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+  /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo:
+    post:
+      operationId: serverReflectionInfo
+      summary: Query server reflection information
+      description: >-
+        Bidirectional streaming endpoint for querying server reflection
+        data. Allows clients to discover available services, methods,
+        and message types at runtime without prior knowledge of the
+        service definitions.
+      tags:
+        - Reflection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerReflectionRequest'
+      responses:
+        '200':
+          description: Reflection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerReflectionResponse'
+  /grpc.channelz.v1.Channelz/GetTopChannels:
+    post:
+      operationId: getTopChannels
+      summary: Get top-level channels
+      description: >-
+        Returns information about top-level channels including their
+        connectivity state, call statistics, and subchannel references.
+        Part of the Channelz service for runtime introspection.
+      tags:
+        - Channelz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTopChannelsRequest'
+      responses:
+        '200':
+          description: Top channels response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTopChannelsResponse'
+  /grpc.channelz.v1.Channelz/GetServers:
+    post:
+      operationId: getServers
+      summary: Get server information
+      description: >-
+        Returns information about all servers including their listen
+        addresses, call counts, and last call timestamps.
+      tags:
+        - Channelz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetServersRequest'
+      responses:
+        '200':
+          description: Servers response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServersResponse'
+  /grpc.channelz.v1.Channelz/GetChannel:
+    post:
+      operationId: getChannel
+      summary: Get channel details
+      description: >-
+        Returns detailed information about a specific channel
+        identified by its channel ID.
+      tags:
+        - Channelz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChannelRequest'
+      responses:
+        '200':
+          description: Channel details response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChannelResponse'
+  /grpc.channelz.v1.Channelz/GetServerSockets:
+    post:
+      operationId: getServerSockets
+      summary: Get server socket information
+      description: >-
+        Returns information about sockets associated with a specific
+        server, including connection details and data transfer statistics.
+      tags:
+        - Channelz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetServerSocketsRequest'
+      responses:
+        '200':
+          description: Server sockets response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServerSocketsResponse'
+components:
+  schemas:
+    HealthCheckRequest:
+      type: object
+      properties:
+        service:
+          type: string
+          description: >-
+            The fully-qualified service name to check. An empty string
+            or omitted value checks the overall server health.
+    HealthCheckResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - UNKNOWN
+            - SERVING
+            - NOT_SERVING
+            - SERVICE_UNKNOWN
+          description: The health status of the requested service.
+    ServerReflectionRequest:
+      type: object
+      properties:
+        host:
+          type: string
+          description: The host name for which reflection info is requested.
+        list_services:
+          type: string
+          description: >-
+            Set to empty string to list all services. When set, returns
+            the list of all registered services.
+        file_by_filename:
+          type: string
+          description: >-
+            Find a proto file by the file name.
+        file_containing_symbol:
+          type: string
+          description: >-
+            Find the proto file that declares the given fully-qualified symbol name.
+        file_containing_extension:
+          type: object
+          properties:
+            containing_type:
+              type: string
+            extension_number:
+              type: integer
+          description: Find the proto file which defines an extension of the given type and number.
+        all_extension_numbers_of_type:
+          type: string
+          description: >-
+            Find all extension numbers for a given type.
+    ServerReflectionResponse:
+      type: object
+      properties:
+        valid_host:
+          type: string
+        original_request:
+          $ref: '#/components/schemas/ServerReflectionRequest'
+        list_services_response:
+          type: object
+          properties:
+            service:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+        error_response:
+          type: object
+          properties:
+            error_code:
+              type: integer
+            error_message:
+              type: string
+    GetTopChannelsRequest:
+      type: object
+      properties:
+        start_channel_id:
+          type: string
+          format: int64
+          description: >-
+            The channel ID from which to start listing. Set to 0 to
+            list from the beginning.
+        max_results:
+          type: string
+          format: int64
+          description: Maximum number of results to return.
+    GetTopChannelsResponse:
+      type: object
+      properties:
+        channel:
+          type: array
+          items:
+            $ref: '#/components/schemas/Channel'
+        end:
+          type: boolean
+          description: Whether the server has returned all available channels.
+    GetServersRequest:
+      type: object
+      properties:
+        start_server_id:
+          type: string
+          format: int64
+          description: The server ID from which to start listing.
+        max_results:
+          type: string
+          format: int64
+    GetServersResponse:
+      type: object
+      properties:
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+        end:
+          type: boolean
+    GetChannelRequest:
+      type: object
+      required:
+        - channel_id
+      properties:
+        channel_id:
+          type: string
+          format: int64
+    GetChannelResponse:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Channel'
+    GetServerSocketsRequest:
+      type: object
+      required:
+        - server_id
+      properties:
+        server_id:
+          type: string
+          format: int64
+        start_socket_id:
+          type: string
+          format: int64
+        max_results:
+          type: string
+          format: int64
+    GetServerSocketsResponse:
+      type: object
+      properties:
+        socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+        end:
+          type: boolean
+    Channel:
+      type: object
+      properties:
+        ref:
+          $ref: '#/components/schemas/ChannelRef'
+        data:
+          $ref: '#/components/schemas/ChannelData'
+        channel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelRef'
+        subchannel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubchannelRef'
+        socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+    ChannelRef:
+      type: object
+      properties:
+        channel_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    SubchannelRef:
+      type: object
+      properties:
+        subchannel_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    SocketRef:
+      type: object
+      properties:
+        socket_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    ChannelData:
+      type: object
+      properties:
+        state:
+          type: object
+          properties:
+            state:
+              type: string
+              enum:
+                - UNKNOWN
+                - IDLE
+                - CONNECTING
+                - READY
+                - TRANSIENT_FAILURE
+                - SHUTDOWN
+        target:
+          type: string
+          description: The target URI this channel is connecting to.
+        trace:
+          type: object
+          properties:
+            num_events_logged:
+              type: string
+              format: int64
+            events:
+              type: array
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  severity:
+                    type: string
+                    enum:
+                      - CT_UNKNOWN
+                      - CT_INFO
+                      - CT_WARNING
+                      - CT_ERROR
+                  timestamp:
+                    type: string
+                    format: date-time
+        calls_started:
+          type: string
+          format: int64
+        calls_succeeded:
+          type: string
+          format: int64
+        calls_failed:
+          type: string
+          format: int64
+        last_call_started_timestamp:
+          type: string
+          format: date-time
+    Server:
+      type: object
+      properties:
+        ref:
+          type: object
+          properties:
+            server_id:
+              type: string
+              format: int64
+            name:
+              type: string
+        data:
+          type: object
+          properties:
+            calls_started:
+              type: string
+              format: int64
+            calls_succeeded:
+              type: string
+              format: int64
+            calls_failed:
+              type: string
+              format: int64
+            last_call_started_timestamp:
+              type: string
+              format: date-time
+            trace:
+              type: object
+              properties:
+                num_events_logged:
+                  type: string
+                  format: int64
+        listen_socket:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+tags:
+  - name: Health Checking
+    description: >-
+      gRPC Health Checking Protocol endpoints for monitoring service
+      availability and readiness.
+  - name: Reflection
+    description: >-
+      Server Reflection service for runtime discovery of available
+      gRPC services and their definitions.
+  - name: Channelz
+    description: >-
+      Channelz service for runtime introspection of gRPC channels,
+      subchannels, servers, and sockets.

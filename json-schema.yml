@@ -1,0 +1,238 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/api-evangelist/grpc/json-schema.yml
+title: gRPC Schemas
+description: >-
+  JSON Schema definitions for gRPC service definitions, health check
+  responses, and channelz channel and server statistics.
+$defs:
+
+  ServiceDefinition:
+    title: gRPC Service Definition
+    description: >-
+      Represents the definition of a gRPC service including its methods,
+      input/output types, and streaming configuration. Maps to the service
+      construct in Protocol Buffer service definitions.
+    type: object
+    required:
+      - name
+      - fully_qualified_name
+      - methods
+    properties:
+      name:
+        type: string
+        description: The short name of the service.
+      fully_qualified_name:
+        type: string
+        description: >-
+          The fully-qualified name of the service including the package
+          (e.g., grpc.health.v1.Health).
+      package:
+        type: string
+        description: The Protocol Buffer package name.
+      file:
+        type: string
+        description: >-
+          The proto file in which this service is defined.
+      methods:
+        type: array
+        description: The RPC methods defined in this service.
+        items:
+          $ref: '#/$defs/MethodDefinition'
+      options:
+        type: object
+        description: Service-level options from the proto definition.
+        additionalProperties: true
+
+  MethodDefinition:
+    title: gRPC Method Definition
+    description: >-
+      Represents a single RPC method within a gRPC service, including
+      its request/response types and streaming mode.
+    type: object
+    required:
+      - name
+      - input_type
+      - output_type
+    properties:
+      name:
+        type: string
+        description: The method name.
+      input_type:
+        type: string
+        description: >-
+          The fully-qualified name of the request message type.
+      output_type:
+        type: string
+        description: >-
+          The fully-qualified name of the response message type.
+      client_streaming:
+        type: boolean
+        default: false
+        description: Whether the client sends a stream of messages.
+      server_streaming:
+        type: boolean
+        default: false
+        description: Whether the server sends a stream of messages.
+      options:
+        type: object
+        description: Method-level options from the proto definition.
+        additionalProperties: true
+
+  HealthCheckResponse:
+    title: gRPC Health Check Response
+    description: >-
+      Response message for the gRPC Health Checking Protocol as defined
+      in grpc.health.v1. Used by load balancers, orchestrators, and
+      monitoring systems to determine service availability.
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        type: string
+        enum:
+          - UNKNOWN
+          - SERVING
+          - NOT_SERVING
+          - SERVICE_UNKNOWN
+        description: >-
+          The health status. UNKNOWN indicates the health is not yet
+          determined. SERVING means the service is healthy. NOT_SERVING
+          means the service exists but is not ready. SERVICE_UNKNOWN
+          means the service name is not recognized.
+      service:
+        type: string
+        description: >-
+          The service name that was checked. Empty string indicates
+          the overall server health.
+      timestamp:
+        type: string
+        format: date-time
+        description: The time at which the health status was observed.
+
+  ChannelStats:
+    title: gRPC Channel Statistics
+    description: >-
+      Statistics for a gRPC channel as reported by the Channelz service.
+      Provides visibility into channel connectivity state, call counts,
+      and resolution targets.
+    type: object
+    required:
+      - channel_id
+    properties:
+      channel_id:
+        type: integer
+        format: int64
+        description: Unique identifier for this channel.
+      name:
+        type: string
+        description: Human-readable name assigned to the channel.
+      state:
+        type: string
+        enum:
+          - UNKNOWN
+          - IDLE
+          - CONNECTING
+          - READY
+          - TRANSIENT_FAILURE
+          - SHUTDOWN
+        description: The current connectivity state of the channel.
+      target:
+        type: string
+        description: >-
+          The target URI this channel is attempting to connect to.
+      calls_started:
+        type: integer
+        format: int64
+        description: Total number of calls started on this channel.
+      calls_succeeded:
+        type: integer
+        format: int64
+        description: Total number of calls that completed successfully.
+      calls_failed:
+        type: integer
+        format: int64
+        description: Total number of calls that failed.
+      last_call_started_timestamp:
+        type: string
+        format: date-time
+        description: Timestamp of the most recently started call.
+      subchannels:
+        type: array
+        description: References to subchannels under this channel.
+        items:
+          type: object
+          properties:
+            subchannel_id:
+              type: integer
+              format: int64
+            name:
+              type: string
+      trace_events:
+        type: array
+        description: Recent trace events for debugging channel behavior.
+        items:
+          type: object
+          properties:
+            description:
+              type: string
+            severity:
+              type: string
+              enum:
+                - CT_UNKNOWN
+                - CT_INFO
+                - CT_WARNING
+                - CT_ERROR
+            timestamp:
+              type: string
+              format: date-time
+
+  ServerStats:
+    title: gRPC Server Statistics
+    description: >-
+      Statistics for a gRPC server as reported by the Channelz service.
+      Provides call counts, listening addresses, and socket references.
+    type: object
+    required:
+      - server_id
+    properties:
+      server_id:
+        type: integer
+        format: int64
+        description: Unique identifier for this server.
+      name:
+        type: string
+        description: Human-readable name assigned to the server.
+      calls_started:
+        type: integer
+        format: int64
+        description: Total number of calls started on this server.
+      calls_succeeded:
+        type: integer
+        format: int64
+        description: Total number of calls that completed successfully.
+      calls_failed:
+        type: integer
+        format: int64
+        description: Total number of calls that failed.
+      last_call_started_timestamp:
+        type: string
+        format: date-time
+        description: Timestamp of the most recently started call.
+      listen_sockets:
+        type: array
+        description: Sockets on which this server is listening.
+        items:
+          type: object
+          properties:
+            socket_id:
+              type: integer
+              format: int64
+            name:
+              type: string
+            local_address:
+              type: string
+              description: The local address the socket is bound to.
+            local_port:
+              type: integer
+              description: The local port the socket is bound to.
