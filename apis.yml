@@ -1,54 +1,54 @@
+aid: grpc
 name: gRPC
-description: A high-performance, open-source universal RPC framework that uses HTTP/2
-  for transport, Protocol Buffers as the interface description language, and provides
-  features such as authentication, bidirectional streaming and flow control, blocking
-  or nonblocking bindings, and cancellation and timeouts.
-url: https://grpc.io/
+description: >-
+  gRPC is a high-performance, open-source universal RPC framework that uses
+  HTTP/2 for transport, Protocol Buffers as the interface description language,
+  and provides features such as authentication, bidirectional streaming and flow
+  control, blocking or nonblocking bindings, and cancellation and timeouts.
+  Originally developed at Google, it is now a CNCF project.
+url: https://raw.githubusercontent.com/api-evangelist/grpc/refs/heads/main/apis.yml
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- RPC
-- API
-- Protocol Buffers
-- HTTP/2
-- Microservices
+  - RPC
+  - Protocol Buffers
+  - HTTP/2
+  - Microservices
+  - CNCF
 created: '2025'
-modified: '2025'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis:
-- name: gRPC-Web Proxy API
-  description: >-
-    OpenAPI specification for gRPC-Web proxy endpoints covering health
-    checking, server reflection, and channelz introspection services
-    exposed over HTTP for browser-based and REST clients.
-  url: https://grpc.io/docs/platforms/web/
-  tags:
-  - Health Checking
-  - Reflection
-  - Channelz
-  - gRPC-Web
-  properties:
-  - type: OpenAPI
-    url: openapi.yml
+  - aid: grpc:grpc-web-proxy-api
+    name: gRPC-Web Proxy API
+    description: >-
+      OpenAPI specification for gRPC-Web proxy endpoints covering health
+      checking, server reflection, and channelz introspection services
+      exposed over HTTP for browser-based and REST clients.
+    humanURL: https://grpc.io/docs/platforms/web/
+    tags:
+      - Health Checking
+      - Reflection
+      - Channelz
+      - gRPC-Web
+    properties:
+      - type: OpenAPI
+        url: openapi.yml
+      - type: Documentation
+        url: https://grpc.io/docs/platforms/web/
 common:
-- name: gRPC JSON Schema
-  description: >-
-    JSON Schema definitions for gRPC service definitions, health check
-    responses, and channelz channel and server statistics.
-  tags:
-  - JSON Schema
-  - Service Definition
-  - Health Check
-  - Channelz
-  properties:
-  - type: JSONSchema
-    url: json-schema.yml
-- name: gRPC JSON-LD Context
-  description: >-
-    JSON-LD context mapping gRPC concepts such as services, methods,
-    health checks, channels, and servers to Schema.org and linked
-    data vocabularies.
-  tags:
-  - JSON-LD
-  - Linked Data
-  - Semantic Web
-  properties:
-  - type: JSON-LD
-    url: context.jsonld
+  - type: Website
+    url: https://grpc.io/
+  - type: Documentation
+    url: https://grpc.io/docs/
+  - type: Getting Started
+    url: https://grpc.io/docs/languages/
+  - type: GitHub Organization
+    url: https://github.com/grpc
+  - type: Blog
+    url: https://grpc.io/blog/
+  - type: Community
+    url: https://grpc.io/community/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
