@@ -16,7 +16,7 @@ tags:
   - Microservices
   - CNCF
 created: '2025'
-modified: '2026-03-16'
+modified: '2026-03-18'
 specificationVersion: '0.19'
 apis:
   - aid: grpc:grpc-web-proxy-api
@@ -36,6 +36,84 @@ apis:
         url: openapi.yml
       - type: Documentation
         url: https://grpc.io/docs/platforms/web/
+      - type: Reference
+        url: https://grpc.io/docs/platforms/web/basics/
+      - type: JSONSchema
+        url: json-schema.yml
+  - aid: grpc:grpc-core
+    name: gRPC Core Framework
+    description: >-
+      The gRPC core framework defines the RPC protocol, service definition
+      format using Protocol Buffers, and the fundamental call lifecycle
+      including unary, server-streaming, client-streaming, and bidirectional
+      streaming patterns over HTTP/2. It is the foundational specification
+      implemented by all language-specific gRPC SDKs.
+    humanURL: https://grpc.io/docs/what-is-grpc/introduction/
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    properties:
+      - type: Documentation
+        url: https://grpc.io/docs/what-is-grpc/introduction/
+      - type: Reference
+        url: https://grpc.io/docs/what-is-grpc/core-concepts/
+      - type: Authentication
+        url: https://grpc.io/docs/guides/auth/
+      - type: GitHubRepository
+        url: https://github.com/grpc/grpc
+      - type: JSONSchema
+        url: service-config-schema.json
+      - type: JSONSchema
+        url: json-schema.yml
+      - type: JSON-LD
+        url: context.jsonld
+    tags:
+      - RPC
+      - Protocol Buffers
+      - HTTP/2
+      - Streaming
+  - aid: grpc:grpc-health-checking
+    name: gRPC Health Checking Service
+    description: >-
+      The gRPC Health Checking Protocol defines a standard service that gRPC
+      servers implement to expose health status information to clients and load
+      balancers. Servers implement the Health service proto to report per-service
+      readiness, and clients can configure automatic health-check-based connection
+      management.
+    humanURL: https://grpc.io/docs/guides/health-checking/
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    properties:
+      - type: Documentation
+        url: https://grpc.io/docs/guides/health-checking/
+      - type: Reference
+        url: https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto
+      - type: GitHubRepository
+        url: https://github.com/grpc/grpc-proto
+      - type: AsyncAPI
+        url: asyncapi.yml
+    tags:
+      - Health Checking
+      - Observability
+      - Load Balancing
+  - aid: grpc:grpc-server-reflection
+    name: gRPC Server Reflection
+    description: >-
+      The gRPC Server Reflection Protocol allows gRPC servers to declare the
+      protobuf-defined APIs they export over a standardized RPC service, including
+      all types referenced by request and response messages. This enables command-line
+      debugging tools and clients to dynamically discover and invoke gRPC services
+      without pre-compiled stubs.
+    humanURL: https://grpc.io/docs/guides/reflection/
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    properties:
+      - type: Documentation
+        url: https://grpc.io/docs/guides/reflection/
+      - type: Reference
+        url: https://github.com/grpc/grpc/blob/master/doc/server-reflection.md
+      - type: AsyncAPI
+        url: asyncapi.yml
+    tags:
+      - Reflection
+      - Service Discovery
+      - Debugging
 common:
   - type: Website
     url: https://grpc.io/
@@ -49,6 +127,20 @@ common:
     url: https://grpc.io/blog/
   - type: Community
     url: https://grpc.io/community/
+  - type: FAQ
+    url: https://grpc.io/docs/what-is-grpc/faq/
+  - type: SDKs
+    url: https://grpc.io/docs/languages/
+  - type: Change Log
+    url: https://github.com/grpc/grpc/releases
+  - type: JSONSchema
+    url: json-schema.yml
+  - type: JSONSchema
+    url: service-config-schema.json
+  - type: AsyncAPI
+    url: asyncapi.yml
+  - type: JSON-LD
+    url: context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

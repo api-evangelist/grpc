@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://grpc.io/schemas/service-config.json",
+  "title": "gRPC Service Configuration",
+  "description": "Schema for the gRPC service configuration object, which is returned by name resolvers and configures per-service load balancing policy, retry behavior, method-level timeouts, and wait-for-ready semantics. Service configs are typically embedded in DNS TXT records or returned by xDS management servers and are consumed by all language-specific gRPC client implementations.",
+  "type": "object",
+  "properties": {
+    "loadBalancingConfig": {
+      "type": "array",
+      "description": "Ordered list of load balancing policy configurations. The client uses the first policy it supports. Each element is an object with a single key naming the policy and a value containing policy-specific configuration.",
+      "items": {
+        "type": "object",
+        "description": "A load balancing policy entry. The key is the policy name; the value is the policy-specific configuration object.",
+        "additionalProperties": true,
+        "maxProperties": 1,
+        "minProperties": 1
+      }
+    },
+    "methodConfig": {
+      "type": "array",
+      "description": "Per-method or per-service configuration entries. Each entry applies to the methods matched by its 'name' field. When multiple entries match a method, the most specific match wins.",
+      "items": {
+        "$ref": "#/$defs/MethodConfig"
+      }
+    }
+  },
+  "$defs": {
+    "MethodConfig": {
+      "type": "object",
+      "description": "Configuration applied to one or more RPC methods matched by the 'name' field. Controls timeouts, retries, hedging, and wait-for-ready behavior.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "array",
+          "description": "List of service/method selectors this configuration applies to. An empty method name matches all methods of the specified service. An empty service name matches all services.",
+          "items": {
+            "$ref": "#/$defs/MethodSelector"
+          },
+          "minItems": 1
+        },
+        "waitForReady": {
+          "type": "boolean",
+          "description": "If true, RPCs that encounter a transient failure will wait for the channel to become ready rather than immediately failing. Useful for startup ordering scenarios.",
+          "default": false
+        },
+        "timeout": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?s$",
+          "description": "Default timeout for matched RPCs expressed as a duration string with 's' suffix, e.g. '5s' or '0.5s'. The RPC will be cancelled if it does not complete within this duration.",
+          "examples": ["5s", "30s", "0.5s"]
+        },
+        "maxRequestMessageBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum size in bytes of an individual request message for matched RPCs. If a request exceeds this size the RPC will fail with RESOURCE_EXHAUSTED status."
+        },
+        "maxResponseMessageBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum size in bytes of an individual response message for matched RPCs. If a response exceeds this size the RPC will fail with RESOURCE_EXHAUSTED status."
+        },
+        "retryPolicy": {
+          "$ref": "#/$defs/RetryPolicy"
+        },
+        "hedgingPolicy": {
+          "$ref": "#/$defs/HedgingPolicy"
+        }
+      }
+    },
+    "MethodSelector": {
+      "type": "object",
+      "description": "Selects one or more RPC methods to which a MethodConfig applies. Both fields are optional; omitting service matches all services, omitting method matches all methods of the specified service.",
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "Fully-qualified service name without the leading slash, e.g. 'grpc.health.v1.Health'. If empty or omitted, matches all services."
+        },
+        "method": {
+          "type": "string",
+          "description": "RPC method name without package or service prefix, e.g. 'Check'. If empty or omitted, matches all methods of the specified service."
+        }
+      }
+    },
+    "RetryPolicy": {
+      "type": "object",
+      "description": "Retry policy configuration for an RPC method. When enabled, failed RPCs will be retried up to maxAttempts times for retryable status codes. Retry and hedging policies are mutually exclusive.",
+      "required": ["maxAttempts", "initialBackoff", "maxBackoff", "backoffMultiplier", "retryableStatusCodes"],
+      "properties": {
+        "maxAttempts": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 5,
+          "description": "Maximum number of total attempts including the initial attempt. Must be between 2 and 5. Actual retry attempts equal maxAttempts minus 1."
+        },
+        "initialBackoff": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?s$",
+          "description": "Initial delay before the first retry, as a duration string with 's' suffix. Actual delay is randomized between 0 and this value.",
+          "examples": ["0.1s", "1s"]
+        },
+        "maxBackoff": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?s$",
+          "description": "Maximum delay between retries, as a duration string with 's' suffix. Backoff is capped at this value regardless of the multiplier.",
+          "examples": ["1s", "30s"]
+        },
+        "backoffMultiplier": {
+          "type": "number",
+          "minimum": 1.0,
+          "description": "Multiplier applied to the current backoff delay after each failed retry attempt, implementing exponential backoff."
+        },
+        "retryableStatusCodes": {
+          "type": "array",
+          "description": "List of gRPC status codes that are considered retryable. The RPC will only be retried if it fails with one of these codes. Common retryable codes include UNAVAILABLE and RESOURCE_EXHAUSTED.",
+          "items": {
+            "type": "string",
+            "description": "gRPC status code name in uppercase.",
+            "enum": [
+              "OK",
+              "CANCELLED",
+              "UNKNOWN",
+              "INVALID_ARGUMENT",
+              "DEADLINE_EXCEEDED",
+              "NOT_FOUND",
+              "ALREADY_EXISTS",
+              "PERMISSION_DENIED",
+              "RESOURCE_EXHAUSTED",
+              "FAILED_PRECONDITION",
+              "ABORTED",
+              "OUT_OF_RANGE",
+              "UNIMPLEMENTED",
+              "INTERNAL",
+              "UNAVAILABLE",
+              "DATA_LOSS",
+              "UNAUTHENTICATED"
+            ]
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "HedgingPolicy": {
+      "type": "object",
+      "description": "Hedging policy configuration for an RPC method. When enabled, the client sends multiple concurrent copies of the RPC and uses the first successful response, cancelling remaining attempts. Hedging and retry policies are mutually exclusive.",
+      "required": ["maxAttempts"],
+      "properties": {
+        "maxAttempts": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 5,
+          "description": "Maximum number of concurrent hedged attempts. Must be between 2 and 5."
+        },
+        "hedgingDelay": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?s$",
+          "description": "Delay before sending each additional hedged request, as a duration string. If '0s' or omitted, all hedged requests are sent immediately.",
+          "examples": ["0.5s", "1s"]
+        },
+        "nonFatalStatusCodes": {
+          "type": "array",
+          "description": "Status codes that should not immediately cancel the hedging attempt. If a hedged RPC returns one of these codes the client waits for other hedged attempts to complete.",
+          "items": {
+            "type": "string",
+            "description": "gRPC status code name in uppercase.",
+            "enum": [
+              "OK",
+              "CANCELLED",
+              "UNKNOWN",
+              "INVALID_ARGUMENT",
+              "DEADLINE_EXCEEDED",
+              "NOT_FOUND",
+              "ALREADY_EXISTS",
+              "PERMISSION_DENIED",
+              "RESOURCE_EXHAUSTED",
+              "FAILED_PRECONDITION",
+              "ABORTED",
+              "OUT_OF_RANGE",
+              "UNIMPLEMENTED",
+              "INTERNAL",
+              "UNAVAILABLE",
+              "DATA_LOSS",
+              "UNAUTHENTICATED"
+            ]
+          }
+        }
+      }
+    },
+    "RoundRobinConfig": {
+      "type": "object",
+      "description": "Configuration for the round_robin load balancing policy. Distributes calls evenly across all available backends in round-robin order.",
+      "properties": {}
+    },
+    "PickFirstConfig": {
+      "type": "object",
+      "description": "Configuration for the pick_first load balancing policy. Attempts to connect to addresses in order and uses the first successful connection for all RPCs.",
+      "properties": {
+        "shuffleAddressList": {
+          "type": "boolean",
+          "description": "If true, the address list is shuffled before the first connection attempt, spreading load across multiple clients that share the same address list.",
+          "default": false
+        }
+      }
+    },
+    "GrpcLbConfig": {
+      "type": "object",
+      "description": "Configuration for the grpclb load balancing policy, which uses a separate gRPC Load Balancer server to obtain the list of backend addresses.",
+      "properties": {
+        "childPolicy": {
+          "type": "array",
+          "description": "Ordered list of load balancing policies to use for the backends returned by the gRPC LB server.",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "maxProperties": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,345 @@
+asyncapi: 2.6.0
+info:
+  title: gRPC Streaming Services
+  description: >-
+    AsyncAPI specification for gRPC streaming services including the Health
+    Checking Watch stream, Server Reflection bidirectional stream, and core
+    gRPC call patterns. gRPC uses HTTP/2 as its transport, providing full-duplex
+    streaming over a single connection. This document captures the server-streaming
+    and bidirectional-streaming RPC patterns that cannot be fully expressed in
+    a synchronous OpenAPI specification.
+  version: '1.0.0'
+  contact:
+    name: gRPC Authors
+    url: https://grpc.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: gRPC Core Concepts — Streaming
+  url: https://grpc.io/docs/what-is-grpc/core-concepts/
+servers:
+  grpcServer:
+    url: '{host}:{port}'
+    protocol: grpc
+    description: >-
+      A gRPC server exposing health checking, reflection, or other streaming
+      services over HTTP/2. The default gRPC port is 50051.
+    variables:
+      host:
+        default: localhost
+        description: Hostname of the gRPC server
+      port:
+        default: '50051'
+        description: Port on which the gRPC server is listening
+    security:
+      - tlsClientCert: []
+  grpcWebProxy:
+    url: '{proxyHost}:{proxyPort}'
+    protocol: https
+    description: >-
+      A gRPC-Web proxy that translates HTTP/1.1 or browser HTTP/2 requests
+      to native gRPC. Used for browser clients that cannot speak raw gRPC.
+    variables:
+      proxyHost:
+        default: localhost
+        description: Hostname of the gRPC-Web proxy
+      proxyPort:
+        default: '8080'
+        description: Port on which the gRPC-Web proxy is listening
+channels:
+  /grpc.health.v1.Health/Watch:
+    description: >-
+      Server-streaming RPC that watches health status changes for a specific
+      gRPC service. The client sends a single HealthCheckRequest and the server
+      streams HealthCheckResponse messages whenever the health status of the
+      requested service changes. The stream remains open until cancelled by
+      the client or terminated by the server. This is used by service meshes,
+      load balancers, and monitoring systems for continuous health tracking.
+    subscribe:
+      operationId: watchHealthStatus
+      summary: Stream health status changes for a service
+      description: >-
+        Receives a continuous stream of HealthCheckResponse messages as the
+        health status of the requested service changes. An initial response is
+        sent immediately after the Watch RPC is established. Subsequent messages
+        are sent only when the status transitions between SERVING, NOT_SERVING,
+        or SERVICE_UNKNOWN states.
+      message:
+        $ref: '#/components/messages/HealthCheckResponse'
+    publish:
+      operationId: sendHealthWatchRequest
+      summary: Send a health watch request
+      description: >-
+        Sends a single HealthCheckRequest to initiate health watching for a
+        specific service. The service field should be the fully-qualified service
+        name (e.g., 'grpc.health.v1.Health') or empty to watch overall server
+        health.
+      message:
+        $ref: '#/components/messages/HealthCheckRequest'
+
+  /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo:
+    description: >-
+      Bidirectional streaming RPC for gRPC Server Reflection. Both the client
+      and server stream messages for the duration of the RPC. The client sends
+      ServerReflectionRequest messages asking for service lists, proto file
+      descriptors, or extension information, and the server responds with
+      ServerReflectionResponse messages containing the requested data. This
+      enables tools like grpcurl and grpc-client-cli to discover and invoke
+      services without compiled stubs.
+    publish:
+      operationId: sendReflectionRequest
+      summary: Send a server reflection request
+      description: >-
+        Sends a ServerReflectionRequest to query the server for service
+        definitions. Supported request types include list_services (enumerate
+        all registered services), file_by_filename (retrieve a proto file
+        descriptor by name), file_containing_symbol (find the proto file
+        defining a symbol), and all_extension_numbers_of_type (list
+        extensions for a message type).
+      message:
+        $ref: '#/components/messages/ServerReflectionRequest'
+    subscribe:
+      operationId: receiveReflectionResponse
+      summary: Receive a server reflection response
+      description: >-
+        Receives a ServerReflectionResponse corresponding to a previously sent
+        ServerReflectionRequest. Each response includes the original request for
+        correlation and one of: list_services_response, file_descriptor_response,
+        all_extension_numbers_response, or error_response.
+      message:
+        $ref: '#/components/messages/ServerReflectionResponse'
+
+  /grpc.health.v1.Health/Check:
+    description: >-
+      Unary RPC for a single health check query. The client sends one
+      HealthCheckRequest and receives one HealthCheckResponse. Returns
+      NOT_FOUND if the service name is not registered. This channel is
+      included for completeness; for continuous monitoring use the Watch
+      channel instead.
+    publish:
+      operationId: sendHealthCheckRequest
+      summary: Send a unary health check request
+      description: >-
+        Sends a single HealthCheckRequest and expects one HealthCheckResponse.
+        Specify the service name to check a particular service, or leave empty
+        to check overall server health.
+      message:
+        $ref: '#/components/messages/HealthCheckRequest'
+    subscribe:
+      operationId: receiveHealthCheckResponse
+      summary: Receive a unary health check response
+      description: >-
+        Receives the health status response for the requested service.
+        The status will be one of SERVING, NOT_SERVING, UNKNOWN, or
+        SERVICE_UNKNOWN if the requested service name is not registered.
+      message:
+        $ref: '#/components/messages/HealthCheckResponse'
+
+components:
+  securitySchemes:
+    tlsClientCert:
+      type: X509
+      description: >-
+        Mutual TLS authentication using X.509 client certificates. gRPC
+        supports TLS for both channel encryption and mutual authentication.
+        Certificate validation is performed by the gRPC channel credentials
+        configuration.
+  messages:
+    HealthCheckRequest:
+      name: HealthCheckRequest
+      title: Health Check Request
+      summary: Request to check or watch the health of a named gRPC service
+      description: >-
+        The request message for the gRPC Health Checking Protocol. Specifies
+        which service to check. An empty or omitted service name checks the
+        overall server health rather than a specific service.
+      contentType: application/grpc+proto
+      payload:
+        $ref: '#/components/schemas/HealthCheckRequest'
+
+    HealthCheckResponse:
+      name: HealthCheckResponse
+      title: Health Check Response
+      summary: Health status of a gRPC service
+      description: >-
+        The response message for the gRPC Health Checking Protocol. Contains
+        the current health status of the checked service. Streamed repeatedly
+        by the Watch RPC whenever the status changes.
+      contentType: application/grpc+proto
+      payload:
+        $ref: '#/components/schemas/HealthCheckResponse'
+
+    ServerReflectionRequest:
+      name: ServerReflectionRequest
+      title: Server Reflection Request
+      summary: Request for service or type information from the reflection service
+      description: >-
+        A request to the gRPC Server Reflection service. Each request includes
+        a host and exactly one of the query fields: list_services, file_by_filename,
+        file_containing_symbol, file_containing_extension, or
+        all_extension_numbers_of_type.
+      contentType: application/grpc+proto
+      payload:
+        $ref: '#/components/schemas/ServerReflectionRequest'
+
+    ServerReflectionResponse:
+      name: ServerReflectionResponse
+      title: Server Reflection Response
+      summary: Response containing service definitions or metadata from the reflection service
+      description: >-
+        A response from the gRPC Server Reflection service corresponding to
+        a ServerReflectionRequest. Contains the original request for correlation
+        and exactly one of: list_services_response, file_descriptor_response,
+        all_extension_numbers_response, or error_response.
+      contentType: application/grpc+proto
+      payload:
+        $ref: '#/components/schemas/ServerReflectionResponse'
+
+  schemas:
+    HealthCheckRequest:
+      type: object
+      description: >-
+        Request message for both the Check and Watch RPCs of the gRPC Health
+        Checking Protocol (grpc.health.v1).
+      properties:
+        service:
+          type: string
+          description: >-
+            The fully-qualified name of the service to check, e.g.
+            'grpc.health.v1.Health'. An empty string checks overall server
+            health rather than a named service.
+
+    HealthCheckResponse:
+      type: object
+      description: >-
+        Response message from the gRPC Health Checking Protocol containing
+        the current serving status of the queried service.
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          description: >-
+            The health status of the service. SERVING means the service is
+            available and healthy. NOT_SERVING means the service is registered
+            but not ready to handle requests. SERVICE_UNKNOWN means the
+            requested service name is not registered with the health service.
+          enum:
+            - UNKNOWN
+            - SERVING
+            - NOT_SERVING
+            - SERVICE_UNKNOWN
+
+    ServerReflectionRequest:
+      type: object
+      description: >-
+        Request message for the gRPC Server Reflection service
+        (grpc.reflection.v1alpha.ServerReflection). Exactly one of the query
+        fields must be set.
+      properties:
+        host:
+          type: string
+          description: >-
+            The host name for which reflection information is being requested.
+            Usually the server hostname.
+        list_services:
+          type: string
+          description: >-
+            Set to any string (including empty) to request a list of all
+            services available on the server. The value is not used as a
+            filter; any non-null value requests the full list.
+        file_by_filename:
+          type: string
+          description: >-
+            Request the proto file descriptor for the file with this name,
+            including all transitive imports. Returns a FileDescriptorProto
+            serialized as bytes.
+        file_containing_symbol:
+          type: string
+          description: >-
+            Request the proto file descriptor for the file that defines the
+            given fully-qualified symbol name (service, method, message type,
+            or enum). Includes transitive imports.
+        file_containing_extension:
+          type: object
+          description: >-
+            Request the proto file that declares an extension of the given
+            message type with the given field number.
+          properties:
+            containing_type:
+              type: string
+              description: Fully-qualified name of the extended message type.
+            extension_number:
+              type: integer
+              description: Field number of the extension.
+        all_extension_numbers_of_type:
+          type: string
+          description: >-
+            Request the list of all extension numbers for the given fully-
+            qualified message type name.
+
+    ServerReflectionResponse:
+      type: object
+      description: >-
+        Response message from the gRPC Server Reflection service. Contains
+        the echoed original request and exactly one response body field.
+      properties:
+        valid_host:
+          type: string
+          description: The validated host name from the original request.
+        original_request:
+          $ref: '#/components/schemas/ServerReflectionRequest'
+        list_services_response:
+          type: object
+          description: Response to a list_services request.
+          properties:
+            service:
+              type: array
+              description: List of service entries available on the server.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: >-
+                      Fully-qualified service name, e.g.
+                      'grpc.health.v1.Health'.
+        file_descriptor_response:
+          type: object
+          description: >-
+            Response to file_by_filename, file_containing_symbol, or
+            file_containing_extension requests. Contains serialized
+            FileDescriptorProto bytes including transitive dependencies.
+          properties:
+            file_descriptor_proto:
+              type: array
+              description: >-
+                List of serialized FileDescriptorProto bytes (base64-encoded
+                when represented as JSON). Each element is one proto file
+                and its transitive imports in dependency order.
+              items:
+                type: string
+                contentEncoding: base64
+        all_extension_numbers_response:
+          type: object
+          description: Response to an all_extension_numbers_of_type request.
+          properties:
+            base_type_name:
+              type: string
+              description: The fully-qualified name of the extended type.
+            extension_number:
+              type: array
+              description: All extension field numbers for the type.
+              items:
+                type: integer
+        error_response:
+          type: object
+          description: Error response when a reflection request cannot be fulfilled.
+          properties:
+            error_code:
+              type: integer
+              description: gRPC status code for the error.
+            error_message:
+              type: string
+              description: Human-readable error message.
