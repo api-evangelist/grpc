@@ -1,0 +1,289 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://api-evangelist.com/schemas/grpc/protobuf-service-definition.json
+title: Protocol Buffers Service Definition
+description: >-
+  JSON representation of a Protocol Buffers service definition file (.proto).
+  Describes the structure of gRPC services including service declarations,
+  RPC methods, message types, enums, and options.
+type: object
+properties:
+  syntax:
+    type: string
+    description: Protocol Buffers syntax version
+    enum:
+      - proto2
+      - proto3
+  package:
+    type: string
+    description: Package namespace for the proto file
+  imports:
+    type: array
+    description: Imported proto files
+    items:
+      type: object
+      properties:
+        path:
+          type: string
+          description: Import file path
+        public:
+          type: boolean
+          description: Whether this is a public import
+        weak:
+          type: boolean
+          description: Whether this is a weak import
+  options:
+    type: object
+    description: File-level options
+    properties:
+      java_package:
+        type: string
+      java_outer_classname:
+        type: string
+      java_multiple_files:
+        type: boolean
+      go_package:
+        type: string
+      csharp_namespace:
+        type: string
+      objc_class_prefix:
+        type: string
+      php_namespace:
+        type: string
+      ruby_package:
+        type: string
+    additionalProperties:
+      type: string
+  services:
+    type: array
+    description: gRPC service declarations
+    items:
+      $ref: '#/$defs/Service'
+  messages:
+    type: array
+    description: Top-level message type definitions
+    items:
+      $ref: '#/$defs/Message'
+  enums:
+    type: array
+    description: Top-level enum type definitions
+    items:
+      $ref: '#/$defs/Enum'
+$defs:
+  Service:
+    type: object
+    description: A gRPC service definition containing RPC methods
+    required:
+      - name
+      - methods
+    properties:
+      name:
+        type: string
+        description: Service name
+      methods:
+        type: array
+        items:
+          $ref: '#/$defs/Method'
+      options:
+        type: object
+        additionalProperties: true
+  Method:
+    type: object
+    description: An RPC method definition
+    required:
+      - name
+      - input_type
+      - output_type
+    properties:
+      name:
+        type: string
+        description: Method name
+      input_type:
+        type: string
+        description: Fully qualified input message type
+      output_type:
+        type: string
+        description: Fully qualified output message type
+      client_streaming:
+        type: boolean
+        description: Whether the client sends a stream of messages
+        default: false
+      server_streaming:
+        type: boolean
+        description: Whether the server returns a stream of messages
+        default: false
+      options:
+        type: object
+        description: Method options (e.g., google.api.http for REST transcoding)
+        additionalProperties: true
+  Message:
+    type: object
+    description: A Protocol Buffers message type
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: Message type name
+      fields:
+        type: array
+        items:
+          $ref: '#/$defs/Field'
+      nested_messages:
+        type: array
+        items:
+          $ref: '#/$defs/Message'
+      nested_enums:
+        type: array
+        items:
+          $ref: '#/$defs/Enum'
+      oneofs:
+        type: array
+        items:
+          $ref: '#/$defs/Oneof'
+      maps:
+        type: array
+        items:
+          $ref: '#/$defs/MapField'
+      reserved:
+        type: object
+        properties:
+          numbers:
+            type: array
+            items:
+              type: integer
+          names:
+            type: array
+            items:
+              type: string
+      options:
+        type: object
+        additionalProperties: true
+  Field:
+    type: object
+    description: A message field definition
+    required:
+      - name
+      - number
+      - type
+    properties:
+      name:
+        type: string
+      number:
+        type: integer
+        minimum: 1
+      type:
+        type: string
+        description: Field type (scalar, message reference, or enum reference)
+        enum:
+          - double
+          - float
+          - int32
+          - int64
+          - uint32
+          - uint64
+          - sint32
+          - sint64
+          - fixed32
+          - fixed64
+          - sfixed32
+          - sfixed64
+          - bool
+          - string
+          - bytes
+          - message
+          - enum
+      type_name:
+        type: string
+        description: >-
+          Fully qualified type name for message and enum fields
+      label:
+        type: string
+        description: Field label
+        enum:
+          - optional
+          - required
+          - repeated
+      default_value:
+        description: Default value for proto2 fields
+      json_name:
+        type: string
+        description: Custom JSON field name
+      options:
+        type: object
+        properties:
+          deprecated:
+            type: boolean
+        additionalProperties: true
+  Oneof:
+    type: object
+    description: A oneof group where only one field can be set
+    required:
+      - name
+      - fields
+    properties:
+      name:
+        type: string
+      fields:
+        type: array
+        items:
+          $ref: '#/$defs/Field'
+  MapField:
+    type: object
+    description: A map field definition
+    required:
+      - name
+      - number
+      - key_type
+      - value_type
+    properties:
+      name:
+        type: string
+      number:
+        type: integer
+      key_type:
+        type: string
+        enum:
+          - int32
+          - int64
+          - uint32
+          - uint64
+          - sint32
+          - sint64
+          - fixed32
+          - fixed64
+          - sfixed32
+          - sfixed64
+          - bool
+          - string
+      value_type:
+        type: string
+      value_type_name:
+        type: string
+        description: Fully qualified type name if value is a message or enum
+  Enum:
+    type: object
+    description: An enum type definition
+    required:
+      - name
+      - values
+    properties:
+      name:
+        type: string
+      values:
+        type: array
+        items:
+          type: object
+          required:
+            - name
+            - number
+          properties:
+            name:
+              type: string
+            number:
+              type: integer
+      options:
+        type: object
+        properties:
+          allow_alias:
+            type: boolean
+        additionalProperties: true

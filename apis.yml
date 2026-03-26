@@ -70,6 +70,24 @@ apis:
       - Protocol Buffers
       - HTTP/2
       - Streaming
+  - aid: grpc:protobuf-service-definition
+    name: Protocol Buffers Service Definition Schema
+    description: >-
+      JSON Schema for Protocol Buffers service definition format (.proto files).
+      Describes the structure of gRPC service declarations, RPC methods,
+      message types, enums, oneofs, maps, and file-level options used to
+      define gRPC APIs.
+    humanURL: https://protobuf.dev/programming-guides/proto3/
+    tags:
+      - Protocol Buffers
+      - Schema
+      - Service Definition
+      - IDL
+    properties:
+      - type: Documentation
+        url: https://protobuf.dev/programming-guides/proto3/
+      - type: JSONSchema
+        url: json-schema/protobuf-service-definition.yml
   - aid: grpc:grpc-health-checking
     name: gRPC Health Checking Service
     description: >-
