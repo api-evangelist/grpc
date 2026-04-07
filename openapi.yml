@@ -472,6 +472,10 @@ components:
           items:
             $ref: '#/components/schemas/SocketRef'
 tags:
+  - name: Channelz
+    description: >-
+      Channelz service for runtime introspection of gRPC channels,
+      subchannels, servers, and sockets.
   - name: Health Checking
     description: >-
       gRPC Health Checking Protocol endpoints for monitoring service
@@ -480,7 +484,3 @@ tags:
     description: >-
       Server Reflection service for runtime discovery of available
       gRPC services and their definitions.
-  - name: Channelz
-    description: >-
-      Channelz service for runtime introspection of gRPC channels,
-      subchannels, servers, and sockets.

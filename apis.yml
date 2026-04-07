@@ -10,11 +10,11 @@ url: https://raw.githubusercontent.com/api-evangelist/grpc/refs/heads/main/apis.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - RPC
-  - Protocol Buffers
+  - CNCF
   - HTTP/2
   - Microservices
-  - CNCF
+  - Protocol Buffers
+  - RPC
 created: '2025'
 modified: '2026-03-18'
 specificationVersion: '0.19'
@@ -27,10 +27,10 @@ apis:
       exposed over HTTP for browser-based and REST clients.
     humanURL: https://grpc.io/docs/platforms/web/
     tags:
-      - Health Checking
-      - Reflection
       - Channelz
       - gRPC-Web
+      - Health Checking
+      - Reflection
     properties:
       - type: OpenAPI
         url: openapi.yml
@@ -66,9 +66,9 @@ apis:
       - type: JSON-LD
         url: context.jsonld
     tags:
-      - RPC
-      - Protocol Buffers
       - HTTP/2
+      - Protocol Buffers
+      - RPC
       - Streaming
   - aid: grpc:protobuf-service-definition
     name: Protocol Buffers Service Definition Schema
@@ -79,10 +79,10 @@ apis:
       define gRPC APIs.
     humanURL: https://protobuf.dev/programming-guides/proto3/
     tags:
+      - IDL
       - Protocol Buffers
       - Schema
       - Service Definition
-      - IDL
     properties:
       - type: Documentation
         url: https://protobuf.dev/programming-guides/proto3/
@@ -109,8 +109,8 @@ apis:
         url: asyncapi.yml
     tags:
       - Health Checking
-      - Observability
       - Load Balancing
+      - Observability
   - aid: grpc:grpc-server-reflection
     name: gRPC Server Reflection
     description: >-
@@ -129,9 +129,9 @@ apis:
       - type: AsyncAPI
         url: asyncapi.yml
     tags:
+      - Debugging
       - Reflection
       - Service Discovery
-      - Debugging
 common:
   - type: Website
     url: https://grpc.io/
