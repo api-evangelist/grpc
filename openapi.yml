@@ -24,7 +24,7 @@ paths:
   /grpc.health.v1.Health/Check:
     post:
       operationId: healthCheck
-      summary: Check service health
+      summary: gRPC Check service health
       description: >-
         Performs a health check against a specific gRPC service or the
         overall server. Implements the gRPC Health Checking Protocol
@@ -51,7 +51,7 @@ paths:
   /grpc.health.v1.Health/Watch:
     post:
       operationId: healthWatch
-      summary: Watch service health changes
+      summary: gRPC Watch service health changes
       description: >-
         Opens a server-streaming connection that sends health status
         updates whenever the health of the requested service changes.
@@ -73,7 +73,7 @@ paths:
   /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo:
     post:
       operationId: serverReflectionInfo
-      summary: Query server reflection information
+      summary: gRPC Query server reflection information
       description: >-
         Bidirectional streaming endpoint for querying server reflection
         data. Allows clients to discover available services, methods,
@@ -97,7 +97,7 @@ paths:
   /grpc.channelz.v1.Channelz/GetTopChannels:
     post:
       operationId: getTopChannels
-      summary: Get top-level channels
+      summary: gRPC Get top-level channels
       description: >-
         Returns information about top-level channels including their
         connectivity state, call statistics, and subchannel references.
@@ -120,7 +120,7 @@ paths:
   /grpc.channelz.v1.Channelz/GetServers:
     post:
       operationId: getServers
-      summary: Get server information
+      summary: gRPC Get server information
       description: >-
         Returns information about all servers including their listen
         addresses, call counts, and last call timestamps.
@@ -142,7 +142,7 @@ paths:
   /grpc.channelz.v1.Channelz/GetChannel:
     post:
       operationId: getChannel
-      summary: Get channel details
+      summary: gRPC Get channel details
       description: >-
         Returns detailed information about a specific channel
         identified by its channel ID.
@@ -164,7 +164,7 @@ paths:
   /grpc.channelz.v1.Channelz/GetServerSockets:
     post:
       operationId: getServerSockets
-      summary: Get server socket information
+      summary: gRPC Get server socket information
       description: >-
         Returns information about sockets associated with a specific
         server, including connection details and data transfer statistics.
