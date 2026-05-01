@@ -16,7 +16,7 @@ tags:
   - Protocol Buffers
   - RPC
 created: '2025'
-modified: '2026-03-18'
+modified: '2026-04-28'
 specificationVersion: '0.19'
 apis:
   - aid: grpc:grpc-web-proxy-api
