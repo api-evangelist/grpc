@@ -1,0 +1,13 @@
+{
+  "repo": "grpc",
+  "feeds": [
+    {
+      "source": "https://grpc.io/blog/",
+      "feed_url": "https://grpc.io/blog/index.xml",
+      "title": "gRPC \u2013 gRPC Blog",
+      "saved": 25
+    }
+  ],
+  "fetched": "2026-05-09T20:17:51Z",
+  "post_count": 25
+}
