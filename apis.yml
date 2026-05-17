@@ -63,7 +63,7 @@ apis:
         url: service-config-schema.json
       - type: JSONSchema
         url: json-schema.yml
-      - type: JSON-LD
+      - type: JSONLD
         url: context.jsonld
     tags:
       - HTTP/2
@@ -137,9 +137,9 @@ common:
     url: https://grpc.io/
   - type: Documentation
     url: https://grpc.io/docs/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://grpc.io/docs/languages/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/grpc
   - type: Blog
     url: https://grpc.io/blog/
@@ -149,7 +149,7 @@ common:
     url: https://grpc.io/docs/what-is-grpc/faq/
   - type: SDKs
     url: https://grpc.io/docs/languages/
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/grpc/grpc/releases
   - type: JSONSchema
     url: json-schema.yml
@@ -157,7 +157,7 @@ common:
     url: service-config-schema.json
   - type: AsyncAPI
     url: asyncapi.yml
-  - type: JSON-LD
+  - type: JSONLD
     url: context.jsonld
 maintainers:
   - FN: Kin Lane
