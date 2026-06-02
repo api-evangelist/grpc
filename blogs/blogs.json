@@ -2,12 +2,20 @@
   "repo": "grpc",
   "feeds": [
     {
-      "source": "https://grpc.io/blog/",
+      "source": "https://grpc.io/blog/index.xml",
       "feed_url": "https://grpc.io/blog/index.xml",
-      "title": "gRPC \u2013 gRPC Blog",
-      "saved": 25
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/grpc",
+      "feed_url": "https://github.com/grpc",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
-  "post_count": 50
+  "fetched": "2026-06-01T23:35:02Z",
+  "post_count": 54
 }
