@@ -8,7 +8,7 @@ description: >-
   Originally developed at Google, it is now a CNCF project.
 url: https://raw.githubusercontent.com/api-evangelist/grpc/refs/heads/main/apis.yml
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - CNCF
   - HTTP/2
@@ -49,7 +49,7 @@ apis:
       streaming patterns over HTTP/2. It is the foundational specification
       implemented by all language-specific gRPC SDKs.
     humanURL: https://grpc.io/docs/what-is-grpc/introduction/
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - type: Documentation
         url: https://grpc.io/docs/what-is-grpc/introduction/
@@ -97,7 +97,7 @@ apis:
       readiness, and clients can configure automatic health-check-based connection
       management.
     humanURL: https://grpc.io/docs/guides/health-checking/
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - type: Documentation
         url: https://grpc.io/docs/guides/health-checking/
@@ -120,7 +120,7 @@ apis:
       debugging tools and clients to dynamically discover and invoke gRPC services
       without pre-compiled stubs.
     humanURL: https://grpc.io/docs/guides/reflection/
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - type: Documentation
         url: https://grpc.io/docs/guides/reflection/
