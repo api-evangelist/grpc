@@ -133,6 +133,8 @@ apis:
       - Reflection
       - Service Discovery
 common:
+  - type: DomainSecurity
+    url: security/grpc-domain-security.yml
   - type: Website
     url: https://grpc.io/
   - type: Documentation

@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: grpc.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 10 10:25:02 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: protobuf.dev
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 19:13:20 2026 GMT
+  hsts: true
+  hsts_max_age: 31556952
+domains:
+- domain: grpc.io
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: protobuf.dev
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
