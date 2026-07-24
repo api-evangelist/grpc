@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: gRPC-Web Proxy Reflection API
+  description: OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.
+  version: 1.0.0
+  contact:
+    name: gRPC Authors
+    url: https://grpc.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost:8080
+  description: Local gRPC-Web proxy
+tags:
+- name: Reflection
+  description: Server Reflection service for runtime discovery of available gRPC services and their definitions.
+paths:
+  /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo:
+    post:
+      operationId: serverReflectionInfo
+      summary: gRPC Query server reflection information
+      description: Bidirectional streaming endpoint for querying server reflection data. Allows clients to discover available services, methods, and message types at runtime without prior knowledge of the service definitions.
+      tags:
+      - Reflection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerReflectionRequest'
+      responses:
+        '200':
+          description: Reflection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerReflectionResponse'
+components:
+  schemas:
+    ServerReflectionResponse:
+      type: object
+      properties:
+        valid_host:
+          type: string
+        original_request:
+          $ref: '#/components/schemas/ServerReflectionRequest'
+        list_services_response:
+          type: object
+          properties:
+            service:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+        error_response:
+          type: object
+          properties:
+            error_code:
+              type: integer
+            error_message:
+              type: string
+    ServerReflectionRequest:
+      type: object
+      properties:
+        host:
+          type: string
+          description: The host name for which reflection info is requested.
+        list_services:
+          type: string
+          description: Set to empty string to list all services. When set, returns the list of all registered services.
+        file_by_filename:
+          type: string
+          description: Find a proto file by the file name.
+        file_containing_symbol:
+          type: string
+          description: Find the proto file that declares the given fully-qualified symbol name.
+        file_containing_extension:
+          type: object
+          properties:
+            containing_type:
+              type: string
+            extension_number:
+              type: integer
+          description: Find the proto file which defines an extension of the given type and number.
+        all_extension_numbers_of_type:
+          type: string
+          description: Find all extension numbers for a given type.
+externalDocs:
+  description: gRPC Documentation
+  url: https://grpc.io/docs/

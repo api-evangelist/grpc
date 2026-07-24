@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: gRPC-Web Proxy Health Checking API
+  description: OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.
+  version: 1.0.0
+  contact:
+    name: gRPC Authors
+    url: https://grpc.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost:8080
+  description: Local gRPC-Web proxy
+tags:
+- name: Health Checking
+  description: gRPC Health Checking Protocol endpoints for monitoring service availability and readiness.
+paths:
+  /grpc.health.v1.Health/Check:
+    post:
+      operationId: healthCheck
+      summary: gRPC Check service health
+      description: Performs a health check against a specific gRPC service or the overall server. Implements the gRPC Health Checking Protocol as defined in the grpc.health.v1 package.
+      tags:
+      - Health Checking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthCheckRequest'
+      responses:
+        '200':
+          description: Health check response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+        '404':
+          description: Service not found
+        '503':
+          description: Service unhealthy
+  /grpc.health.v1.Health/Watch:
+    post:
+      operationId: healthWatch
+      summary: gRPC Watch service health changes
+      description: Opens a server-streaming connection that sends health status updates whenever the health of the requested service changes.
+      tags:
+      - Health Checking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthCheckRequest'
+      responses:
+        '200':
+          description: Stream of health check responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+components:
+  schemas:
+    HealthCheckRequest:
+      type: object
+      properties:
+        service:
+          type: string
+          description: The fully-qualified service name to check. An empty string or omitted value checks the overall server health.
+    HealthCheckResponse:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - UNKNOWN
+          - SERVING
+          - NOT_SERVING
+          - SERVICE_UNKNOWN
+          description: The health status of the requested service.
+externalDocs:
+  description: gRPC Documentation
+  url: https://grpc.io/docs/
