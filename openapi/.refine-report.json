@@ -1,0 +1,20 @@
+{
+  "provider": "grpc",
+  "sources": [
+    "openapi.yml"
+  ],
+  "outputs": [
+    "grpc-channelz-api-openapi.yml",
+    "grpc-health-checking-api-openapi.yml",
+    "grpc-reflection-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "discovered stray spec: openapi.yml"
+  ],
+  "skipped": []
+}
