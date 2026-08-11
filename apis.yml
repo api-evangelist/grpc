@@ -168,6 +168,17 @@ apis:
   - type: JSONSchema
     url: json-schema.yml
 common:
+  - type: IssueTracker
+    url: https://github.com/grpc/grpc/issues
+  - type: SecurityPolicy
+    url: https://github.com/grpc/grpc/blob/master/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/grpc/grpc/blob/master/CODE-OF-CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/grpc/grpc/blob/master/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/grpc/grpc/blob/master/LICENSE
   - type: DomainSecurity
     url: security/grpc-domain-security.yml
   - type: Website
