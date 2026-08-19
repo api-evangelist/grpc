@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "gRPC-Web Proxy Health Checking API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health Checking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "gRPC Check service health",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.health.v1.Health/Check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a health check against a specific gRPC service or the overall server. Implements the gRPC Health Checking Protocol as defined in the grpc.health.v1 package."
+        },
+        {
+          "info": {
+            "name": "gRPC Watch service health changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.health.v1.Health/Watch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Opens a server-streaming connection that sends health status updates whenever the health of the requested service changes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

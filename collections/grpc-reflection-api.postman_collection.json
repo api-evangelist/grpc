@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "175a049c-af9d-4f44-a516-9f3a6f35b704",
+      "name": "Reflection",
+      "description": {
+        "content": "Server Reflection service for runtime discovery of available gRPC services and their definitions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ce1edaee-096d-4c51-b0f3-10de69e6ce33",
+          "name": "gRPC Query server reflection information",
+          "request": {
+            "name": "gRPC Query server reflection information",
+            "description": {
+              "content": "Bidirectional streaming endpoint for querying server reflection data. Allows clients to discover available services, methods, and message types at runtime without prior knowledge of the service definitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.reflection.v1alpha.ServerReflection",
+                "ServerReflectionInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host\": \"<string>\",\n  \"list_services\": \"<string>\",\n  \"file_by_filename\": \"<string>\",\n  \"file_containing_symbol\": \"<string>\",\n  \"file_containing_extension\": {\n    \"containing_type\": \"<string>\",\n    \"extension_number\": \"<integer>\"\n  },\n  \"all_extension_numbers_of_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c3a5846-3f9c-47bb-a140-872fb0e99836",
+              "name": "Reflection response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.reflection.v1alpha.ServerReflection",
+                    "ServerReflectionInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host\": \"<string>\",\n  \"list_services\": \"<string>\",\n  \"file_by_filename\": \"<string>\",\n  \"file_containing_symbol\": \"<string>\",\n  \"file_containing_extension\": {\n    \"containing_type\": \"<string>\",\n    \"extension_number\": \"<integer>\"\n  },\n  \"all_extension_numbers_of_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid_host\": \"string\",\n  \"original_request\": {\n    \"host\": \"<string>\",\n    \"list_services\": \"<string>\",\n    \"file_by_filename\": \"<string>\",\n    \"file_containing_symbol\": \"<string>\",\n    \"file_containing_extension\": {\n      \"containing_type\": \"<string>\",\n      \"extension_number\": \"<integer>\"\n    },\n    \"all_extension_numbers_of_type\": \"<string>\"\n  },\n  \"list_services_response\": {\n    \"service\": [\n      {\n        \"name\": \"string\"\n      },\n      {\n        \"name\": \"string\"\n      }\n    ]\n  },\n  \"error_response\": {\n    \"error_code\": 3896,\n    \"error_message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "38523d01-cdcb-4632-ab66-07a1c84da03a",
+    "name": "gRPC-Web Proxy Reflection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.\n\nContact Support:\n Name: gRPC Authors",
+      "type": "text/plain"
+    }
+  }
+}

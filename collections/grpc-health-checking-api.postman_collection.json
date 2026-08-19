@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "ec14fe79-9b4c-452a-8ba0-328ddee3ab49",
+      "name": "Health Checking",
+      "description": {
+        "content": "gRPC Health Checking Protocol endpoints for monitoring service availability and readiness.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ba5e005-a2e6-4f2a-993b-07dd676ab4b6",
+          "name": "gRPC Check service health",
+          "request": {
+            "name": "gRPC Check service health",
+            "description": {
+              "content": "Performs a health check against a specific gRPC service or the overall server. Implements the gRPC Health Checking Protocol as defined in the grpc.health.v1 package.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.health.v1.Health",
+                "Check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "033d4acb-5515-4d6e-8cf3-f7ab3491c4bf",
+              "name": "Health check response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.health.v1.Health",
+                    "Check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SERVICE_UNKNOWN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b959885-8d51-451f-ab65-c15c7ceadded",
+              "name": "Service not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.health.v1.Health",
+                    "Check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "20171d29-5bb6-4887-b4d4-9fcb50bbd430",
+              "name": "Service unhealthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.health.v1.Health",
+                    "Check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9959a6d-4330-4b65-a9b9-05c4237fc824",
+          "name": "gRPC Watch service health changes",
+          "request": {
+            "name": "gRPC Watch service health changes",
+            "description": {
+              "content": "Opens a server-streaming connection that sends health status updates whenever the health of the requested service changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.health.v1.Health",
+                "Watch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f457903-2b01-4c11-a6ba-9bfdd9ad4a59",
+              "name": "Stream of health check responses",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.health.v1.Health",
+                    "Watch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SERVICE_UNKNOWN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e5a33ea2-7f8e-4212-b0e2-c7c9672e390b",
+    "name": "gRPC-Web Proxy Health Checking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.\n\nContact Support:\n Name: gRPC Authors",
+      "type": "text/plain"
+    }
+  }
+}

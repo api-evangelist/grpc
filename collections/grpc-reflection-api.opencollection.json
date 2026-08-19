@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "gRPC-Web Proxy Reflection API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reflection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "gRPC Query server reflection information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bidirectional streaming endpoint for querying server reflection data. Allows clients to discover available services, methods, and message types at runtime without prior knowledge of the service definitions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,404 @@
+{
+  "item": [
+    {
+      "id": "30d47147-4039-40f1-9f4f-856a6c15f144",
+      "name": "Channelz",
+      "description": {
+        "content": "Channelz service for runtime introspection of gRPC channels, subchannels, servers, and sockets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dc8b6611-1339-4e16-b3b6-78e204289651",
+          "name": "gRPC Get top-level channels",
+          "request": {
+            "name": "gRPC Get top-level channels",
+            "description": {
+              "content": "Returns information about top-level channels including their connectivity state, call statistics, and subchannel references. Part of the Channelz service for runtime introspection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.channelz.v1.Channelz",
+                "GetTopChannels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_channel_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad1f3fb2-998e-48c1-97c2-0338108dd0fc",
+              "name": "Top channels response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.channelz.v1.Channelz",
+                    "GetTopChannels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_channel_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": [\n    {\n      \"ref\": {\n        \"channel_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"data\": {\n        \"state\": {\n          \"state\": \"SHUTDOWN\"\n        },\n        \"target\": \"string\",\n        \"trace\": {\n          \"num_events_logged\": \"string\",\n          \"events\": [\n            {\n              \"description\": \"string\",\n              \"severity\": \"CT_WARNING\",\n              \"timestamp\": \"1957-05-01T08:18:03.144Z\"\n            },\n            {\n              \"description\": \"string\",\n              \"severity\": \"CT_WARNING\",\n              \"timestamp\": \"1995-11-07T17:26:17.107Z\"\n            }\n          ]\n        },\n        \"calls_started\": \"string\",\n        \"calls_succeeded\": \"string\",\n        \"calls_failed\": \"string\",\n        \"last_call_started_timestamp\": \"2004-03-10T03:25:30.800Z\"\n      },\n      \"channel_ref\": [\n        {\n          \"channel_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"channel_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"subchannel_ref\": [\n        {\n          \"subchannel_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"subchannel_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"socket_ref\": [\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    {\n      \"ref\": {\n        \"channel_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"data\": {\n        \"state\": {\n          \"state\": \"IDLE\"\n        },\n        \"target\": \"string\",\n        \"trace\": {\n          \"num_events_logged\": \"string\",\n          \"events\": [\n            {\n              \"description\": \"string\",\n              \"severity\": \"CT_ERROR\",\n              \"timestamp\": \"2008-10-09T04:59:43.045Z\"\n            },\n            {\n              \"description\": \"string\",\n              \"severity\": \"CT_ERROR\",\n              \"timestamp\": \"1949-12-12T19:52:57.655Z\"\n            }\n          ]\n        },\n        \"calls_started\": \"string\",\n        \"calls_succeeded\": \"string\",\n        \"calls_failed\": \"string\",\n        \"last_call_started_timestamp\": \"1973-01-11T15:45:46.167Z\"\n      },\n      \"channel_ref\": [\n        {\n          \"channel_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"channel_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"subchannel_ref\": [\n        {\n          \"subchannel_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"subchannel_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ],\n      \"socket_ref\": [\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"end\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e1405ce-40df-4298-a734-f30974fc732c",
+          "name": "gRPC Get server information",
+          "request": {
+            "name": "gRPC Get server information",
+            "description": {
+              "content": "Returns information about all servers including their listen addresses, call counts, and last call timestamps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.channelz.v1.Channelz",
+                "GetServers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_server_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed30c888-3717-4307-ab7d-b6375ec576c1",
+              "name": "Servers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.channelz.v1.Channelz",
+                    "GetServers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_server_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": [\n    {\n      \"ref\": {\n        \"server_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"data\": {\n        \"calls_started\": \"string\",\n        \"calls_succeeded\": \"string\",\n        \"calls_failed\": \"string\",\n        \"last_call_started_timestamp\": \"2000-11-13T17:19:24.949Z\",\n        \"trace\": {\n          \"num_events_logged\": \"string\"\n        }\n      },\n      \"listen_socket\": [\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    {\n      \"ref\": {\n        \"server_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"data\": {\n        \"calls_started\": \"string\",\n        \"calls_succeeded\": \"string\",\n        \"calls_failed\": \"string\",\n        \"last_call_started_timestamp\": \"1990-01-06T11:01:22.258Z\",\n        \"trace\": {\n          \"num_events_logged\": \"string\"\n        }\n      },\n      \"listen_socket\": [\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"socket_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"end\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2caba9fe-c0dc-40de-935c-98e114c5855a",
+          "name": "gRPC Get channel details",
+          "request": {
+            "name": "gRPC Get channel details",
+            "description": {
+              "content": "Returns detailed information about a specific channel identified by its channel ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.channelz.v1.Channelz",
+                "GetChannel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channel_id\": \"<int64>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d36f5dd-2dee-4e9c-a2e5-510a4ee8e8ab",
+              "name": "Channel details response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.channelz.v1.Channelz",
+                    "GetChannel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel_id\": \"<int64>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": {\n    \"ref\": {\n      \"channel_id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"data\": {\n      \"state\": {\n        \"state\": \"UNKNOWN\"\n      },\n      \"target\": \"string\",\n      \"trace\": {\n        \"num_events_logged\": \"string\",\n        \"events\": [\n          {\n            \"description\": \"string\",\n            \"severity\": \"CT_ERROR\",\n            \"timestamp\": \"1951-03-27T02:50:16.944Z\"\n          },\n          {\n            \"description\": \"string\",\n            \"severity\": \"CT_WARNING\",\n            \"timestamp\": \"1996-05-13T02:45:35.019Z\"\n          }\n        ]\n      },\n      \"calls_started\": \"string\",\n      \"calls_succeeded\": \"string\",\n      \"calls_failed\": \"string\",\n      \"last_call_started_timestamp\": \"1958-03-16T01:18:18.061Z\"\n    },\n    \"channel_ref\": [\n      {\n        \"channel_id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"channel_id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"subchannel_ref\": [\n      {\n        \"subchannel_id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"subchannel_id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"socket_ref\": [\n      {\n        \"socket_id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"socket_id\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15d981a0-957a-41be-b1be-233a11affb2d",
+          "name": "gRPC Get server socket information",
+          "request": {
+            "name": "gRPC Get server socket information",
+            "description": {
+              "content": "Returns information about sockets associated with a specific server, including connection details and data transfer statistics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "grpc.channelz.v1.Channelz",
+                "GetServerSockets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"server_id\": \"<int64>\",\n  \"start_socket_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4d87866-1f39-46b1-8d1b-600c59672bec",
+              "name": "Server sockets response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "grpc.channelz.v1.Channelz",
+                    "GetServerSockets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"server_id\": \"<int64>\",\n  \"start_socket_id\": \"<int64>\",\n  \"max_results\": \"<int64>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"socket_ref\": [\n    {\n      \"socket_id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"socket_id\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"end\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "66a75f01-f7ac-422b-90ab-33b9f041a40d",
+    "name": "gRPC-Web Proxy Channelz API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.\n\nContact Support:\n Name: gRPC Authors",
+      "type": "text/plain"
+    }
+  }
+}

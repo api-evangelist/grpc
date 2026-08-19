@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "gRPC-Web Proxy Channelz API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Channelz",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "gRPC Get top-level channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.channelz.v1.Channelz/GetTopChannels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about top-level channels including their connectivity state, call statistics, and subchannel references. Part of the Channelz service for runtime introspection."
+        },
+        {
+          "info": {
+            "name": "gRPC Get server information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.channelz.v1.Channelz/GetServers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about all servers including their listen addresses, call counts, and last call timestamps."
+        },
+        {
+          "info": {
+            "name": "gRPC Get channel details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.channelz.v1.Channelz/GetChannel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns detailed information about a specific channel identified by its channel ID."
+        },
+        {
+          "info": {
+            "name": "gRPC Get server socket information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost:8080/grpc.channelz.v1.Channelz/GetServerSockets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about sockets associated with a specific server, including connection details and data transfer statistics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
