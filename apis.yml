@@ -29,7 +29,7 @@ tags:
   - RPC
 created: '2025'
 modified: '2026-04-28'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: grpc:grpc-core
   name: gRPC Core Framework
