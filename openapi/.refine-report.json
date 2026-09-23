@@ -1,20 +1,24 @@
 {
   "provider": "grpc",
   "sources": [
-    "openapi.yml"
+    "_original/openapi.yml"
   ],
   "outputs": [
     "grpc-channelz-api-openapi.yml",
     "grpc-health-checking-api-openapi.yml",
     "grpc-reflection-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "discovered stray spec: openapi.yml"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "grpc-channelz-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grpc-health-checking-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grpc-reflection-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

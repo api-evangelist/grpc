@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: gRPC-Web Proxy Channelz API
   description: OpenAPI specification for gRPC-Web proxy endpoints. gRPC-Web is a JavaScript client library that enables browser-based applications to communicate with gRPC services through an intermediary proxy. The proxy translates HTTP/1.1 and HTTP/2 requests into native gRPC calls, exposing health checking, reflection, and channelz services over RESTful HTTP endpoints.
@@ -98,25 +98,20 @@ paths:
                 $ref: '#/components/schemas/GetServerSocketsResponse'
 components:
   schemas:
-    Channel:
+    GetServerSocketsResponse:
       type: object
       properties:
-        ref:
-          $ref: '#/components/schemas/ChannelRef'
-        data:
-          $ref: '#/components/schemas/ChannelData'
-        channel_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelRef'
-        subchannel_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubchannelRef'
         socket_ref:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
+        end:
+          type: boolean
+    GetChannelResponse:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Channel'
     GetServerSocketsRequest:
       type: object
       required:
@@ -131,24 +126,17 @@ components:
         max_results:
           type: string
           format: int64
-    GetServersRequest:
+    GetTopChannelsRequest:
       type: object
       properties:
-        start_server_id:
+        start_channel_id:
           type: string
           format: int64
-          description: The server ID from which to start listing.
+          description: The channel ID from which to start listing. Set to 0 to list from the beginning.
         max_results:
           type: string
           format: int64
-    GetChannelRequest:
-      type: object
-      required:
-      - channel_id
-      properties:
-        channel_id:
-          type: string
-          format: int64
+          description: Maximum number of results to return.
     Server:
       type: object
       properties:
@@ -185,15 +173,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
-    GetServersResponse:
+    GetTopChannelsResponse:
       type: object
       properties:
-        server:
+        channel:
           type: array
           items:
-            $ref: '#/components/schemas/Server'
+            $ref: '#/components/schemas/Channel'
         end:
           type: boolean
+          description: Whether the server has returned all available channels.
+    GetChannelRequest:
+      type: object
+      required:
+      - channel_id
+      properties:
+        channel_id:
+          type: string
+          format: int64
     ChannelRef:
       type: object
       properties:
@@ -202,6 +199,43 @@ components:
           format: int64
         name:
           type: string
+    GetServersRequest:
+      type: object
+      properties:
+        start_server_id:
+          type: string
+          format: int64
+          description: The server ID from which to start listing.
+        max_results:
+          type: string
+          format: int64
+    SubchannelRef:
+      type: object
+      properties:
+        subchannel_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    Channel:
+      type: object
+      properties:
+        ref:
+          $ref: '#/components/schemas/ChannelRef'
+        data:
+          $ref: '#/components/schemas/ChannelData'
+        channel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelRef'
+        subchannel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubchannelRef'
+        socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
     ChannelData:
       type: object
       properties:
@@ -255,41 +289,6 @@ components:
         last_call_started_timestamp:
           type: string
           format: date-time
-    GetServerSocketsResponse:
-      type: object
-      properties:
-        socket_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketRef'
-        end:
-          type: boolean
-    GetChannelResponse:
-      type: object
-      properties:
-        channel:
-          $ref: '#/components/schemas/Channel'
-    GetTopChannelsRequest:
-      type: object
-      properties:
-        start_channel_id:
-          type: string
-          format: int64
-          description: The channel ID from which to start listing. Set to 0 to list from the beginning.
-        max_results:
-          type: string
-          format: int64
-          description: Maximum number of results to return.
-    GetTopChannelsResponse:
-      type: object
-      properties:
-        channel:
-          type: array
-          items:
-            $ref: '#/components/schemas/Channel'
-        end:
-          type: boolean
-          description: Whether the server has returned all available channels.
     SocketRef:
       type: object
       properties:
@@ -298,14 +297,15 @@ components:
           format: int64
         name:
           type: string
-    SubchannelRef:
+    GetServersResponse:
       type: object
       properties:
-        subchannel_id:
-          type: string
-          format: int64
-        name:
-          type: string
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+        end:
+          type: boolean
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/
