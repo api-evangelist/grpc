@@ -98,99 +98,6 @@ paths:
                 $ref: '#/components/schemas/GetServerSocketsResponse'
 components:
   schemas:
-    GetServerSocketsResponse:
-      type: object
-      properties:
-        socket_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketRef'
-        end:
-          type: boolean
-    GetChannelResponse:
-      type: object
-      properties:
-        channel:
-          $ref: '#/components/schemas/Channel'
-    GetServerSocketsRequest:
-      type: object
-      required:
-      - server_id
-      properties:
-        server_id:
-          type: string
-          format: int64
-        start_socket_id:
-          type: string
-          format: int64
-        max_results:
-          type: string
-          format: int64
-    GetTopChannelsRequest:
-      type: object
-      properties:
-        start_channel_id:
-          type: string
-          format: int64
-          description: The channel ID from which to start listing. Set to 0 to list from the beginning.
-        max_results:
-          type: string
-          format: int64
-          description: Maximum number of results to return.
-    Server:
-      type: object
-      properties:
-        ref:
-          type: object
-          properties:
-            server_id:
-              type: string
-              format: int64
-            name:
-              type: string
-        data:
-          type: object
-          properties:
-            calls_started:
-              type: string
-              format: int64
-            calls_succeeded:
-              type: string
-              format: int64
-            calls_failed:
-              type: string
-              format: int64
-            last_call_started_timestamp:
-              type: string
-              format: date-time
-            trace:
-              type: object
-              properties:
-                num_events_logged:
-                  type: string
-                  format: int64
-        listen_socket:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketRef'
-    GetTopChannelsResponse:
-      type: object
-      properties:
-        channel:
-          type: array
-          items:
-            $ref: '#/components/schemas/Channel'
-        end:
-          type: boolean
-          description: Whether the server has returned all available channels.
-    GetChannelRequest:
-      type: object
-      required:
-      - channel_id
-      properties:
-        channel_id:
-          type: string
-          format: int64
     ChannelRef:
       type: object
       properties:
@@ -233,6 +140,70 @@ components:
           items:
             $ref: '#/components/schemas/SubchannelRef'
         socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+    GetTopChannelsRequest:
+      type: object
+      properties:
+        start_channel_id:
+          type: string
+          format: int64
+          description: The channel ID from which to start listing. Set to 0 to list from the beginning.
+        max_results:
+          type: string
+          format: int64
+          description: Maximum number of results to return.
+    SocketRef:
+      type: object
+      properties:
+        socket_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    GetServersResponse:
+      type: object
+      properties:
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+        end:
+          type: boolean
+    Server:
+      type: object
+      properties:
+        ref:
+          type: object
+          properties:
+            server_id:
+              type: string
+              format: int64
+            name:
+              type: string
+        data:
+          type: object
+          properties:
+            calls_started:
+              type: string
+              format: int64
+            calls_succeeded:
+              type: string
+              format: int64
+            calls_failed:
+              type: string
+              format: int64
+            last_call_started_timestamp:
+              type: string
+              format: date-time
+            trace:
+              type: object
+              properties:
+                num_events_logged:
+                  type: string
+                  format: int64
+        listen_socket:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
@@ -289,23 +260,52 @@ components:
         last_call_started_timestamp:
           type: string
           format: date-time
-    SocketRef:
+    GetServerSocketsRequest:
       type: object
+      required:
+      - server_id
       properties:
-        socket_id:
+        server_id:
           type: string
           format: int64
-        name:
+        start_socket_id:
           type: string
-    GetServersResponse:
+          format: int64
+        max_results:
+          type: string
+          format: int64
+    GetTopChannelsResponse:
       type: object
       properties:
-        server:
+        channel:
           type: array
           items:
-            $ref: '#/components/schemas/Server'
+            $ref: '#/components/schemas/Channel'
         end:
           type: boolean
+          description: Whether the server has returned all available channels.
+    GetChannelResponse:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Channel'
+    GetServerSocketsResponse:
+      type: object
+      properties:
+        socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+        end:
+          type: boolean
+    GetChannelRequest:
+      type: object
+      required:
+      - channel_id
+      properties:
+        channel_id:
+          type: string
+          format: int64
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/
