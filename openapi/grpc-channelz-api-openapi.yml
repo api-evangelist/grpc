@@ -98,24 +98,21 @@ paths:
                 $ref: '#/components/schemas/GetServerSocketsResponse'
 components:
   schemas:
-    ChannelRef:
+    GetChannelResponse:
       type: object
       properties:
-        channel_id:
-          type: string
-          format: int64
-        name:
-          type: string
-    GetServersRequest:
+        channel:
+          $ref: '#/components/schemas/Channel'
+    GetTopChannelsResponse:
       type: object
       properties:
-        start_server_id:
-          type: string
-          format: int64
-          description: The server ID from which to start listing.
-        max_results:
-          type: string
-          format: int64
+        channel:
+          type: array
+          items:
+            $ref: '#/components/schemas/Channel'
+        end:
+          type: boolean
+          description: Whether the server has returned all available channels.
     SubchannelRef:
       type: object
       properties:
@@ -124,25 +121,6 @@ components:
           format: int64
         name:
           type: string
-    Channel:
-      type: object
-      properties:
-        ref:
-          $ref: '#/components/schemas/ChannelRef'
-        data:
-          $ref: '#/components/schemas/ChannelData'
-        channel_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelRef'
-        subchannel_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubchannelRef'
-        socket_ref:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketRef'
     GetTopChannelsRequest:
       type: object
       properties:
@@ -162,51 +140,25 @@ components:
           format: int64
         name:
           type: string
-    GetServersResponse:
+    GetServerSocketsResponse:
       type: object
       properties:
-        server:
-          type: array
-          items:
-            $ref: '#/components/schemas/Server'
-        end:
-          type: boolean
-    Server:
-      type: object
-      properties:
-        ref:
-          type: object
-          properties:
-            server_id:
-              type: string
-              format: int64
-            name:
-              type: string
-        data:
-          type: object
-          properties:
-            calls_started:
-              type: string
-              format: int64
-            calls_succeeded:
-              type: string
-              format: int64
-            calls_failed:
-              type: string
-              format: int64
-            last_call_started_timestamp:
-              type: string
-              format: date-time
-            trace:
-              type: object
-              properties:
-                num_events_logged:
-                  type: string
-                  format: int64
-        listen_socket:
+        socket_ref:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
+        end:
+          type: boolean
+    GetServersRequest:
+      type: object
+      properties:
+        start_server_id:
+          type: string
+          format: int64
+          description: The server ID from which to start listing.
+        max_results:
+          type: string
+          format: int64
     ChannelData:
       type: object
       properties:
@@ -260,6 +212,41 @@ components:
         last_call_started_timestamp:
           type: string
           format: date-time
+    Channel:
+      type: object
+      properties:
+        ref:
+          $ref: '#/components/schemas/ChannelRef'
+        data:
+          $ref: '#/components/schemas/ChannelData'
+        channel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelRef'
+        subchannel_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubchannelRef'
+        socket_ref:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketRef'
+    ChannelRef:
+      type: object
+      properties:
+        channel_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    GetChannelRequest:
+      type: object
+      required:
+      - channel_id
+      properties:
+        channel_id:
+          type: string
+          format: int64
     GetServerSocketsRequest:
       type: object
       required:
@@ -274,38 +261,51 @@ components:
         max_results:
           type: string
           format: int64
-    GetTopChannelsResponse:
+    Server:
       type: object
       properties:
-        channel:
-          type: array
-          items:
-            $ref: '#/components/schemas/Channel'
-        end:
-          type: boolean
-          description: Whether the server has returned all available channels.
-    GetChannelResponse:
-      type: object
-      properties:
-        channel:
-          $ref: '#/components/schemas/Channel'
-    GetServerSocketsResponse:
-      type: object
-      properties:
-        socket_ref:
+        ref:
+          type: object
+          properties:
+            server_id:
+              type: string
+              format: int64
+            name:
+              type: string
+        data:
+          type: object
+          properties:
+            calls_started:
+              type: string
+              format: int64
+            calls_succeeded:
+              type: string
+              format: int64
+            calls_failed:
+              type: string
+              format: int64
+            last_call_started_timestamp:
+              type: string
+              format: date-time
+            trace:
+              type: object
+              properties:
+                num_events_logged:
+                  type: string
+                  format: int64
+        listen_socket:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
+    GetServersResponse:
+      type: object
+      properties:
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
         end:
           type: boolean
-    GetChannelRequest:
-      type: object
-      required:
-      - channel_id
-      properties:
-        channel_id:
-          type: string
-          format: int64
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/
