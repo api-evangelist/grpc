@@ -38,6 +38,30 @@ paths:
                 $ref: '#/components/schemas/ServerReflectionResponse'
 components:
   schemas:
+    ServerReflectionResponse:
+      type: object
+      properties:
+        valid_host:
+          type: string
+        original_request:
+          $ref: '#/components/schemas/ServerReflectionRequest'
+        list_services_response:
+          type: object
+          properties:
+            service:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+        error_response:
+          type: object
+          properties:
+            error_code:
+              type: integer
+            error_message:
+              type: string
     ServerReflectionRequest:
       type: object
       properties:
@@ -64,30 +88,6 @@ components:
         all_extension_numbers_of_type:
           type: string
           description: Find all extension numbers for a given type.
-    ServerReflectionResponse:
-      type: object
-      properties:
-        valid_host:
-          type: string
-        original_request:
-          $ref: '#/components/schemas/ServerReflectionRequest'
-        list_services_response:
-          type: object
-          properties:
-            service:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-        error_response:
-          type: object
-          properties:
-            error_code:
-              type: integer
-            error_message:
-              type: string
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/
