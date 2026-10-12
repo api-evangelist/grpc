@@ -1,0 +1,35 @@
+generated: '2026-10-13'
+method: searched
+checked:
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
+marketplace_apps: []
+edges:
+- partner_name: OpenTelemetry
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/instrumentation-cpp-grpc.yml
+  contract_reference:
+    register: OpenTelemetry ecosystem + registry (opentelemetry.io data/)
+    spec_file: null
+    role: participant
+    registered_name: gRPC Authors
+    matched_domain: grpc.io
+    partner_match: domain
+    api_families:
+    - registry:instrumentation
+    records:
+    - registry: instrumentation-cpp-grpc.yml
+    - registry: instrumentation-go-grpc-plugin.yml
+    - registry: instrumentation-java-grpc-plugin.yml
+    - registry: instrumentation-python-grpc-plugin.yml
+    detected_by: sweep-observability.py
+    detected: '2026-10-13'
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+source:
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
