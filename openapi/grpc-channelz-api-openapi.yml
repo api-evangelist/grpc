@@ -98,6 +98,134 @@ paths:
                 $ref: '#/components/schemas/GetServerSocketsResponse'
 components:
   schemas:
+    SocketRef:
+      type: object
+      properties:
+        socket_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    GetChannelRequest:
+      type: object
+      required:
+      - channel_id
+      properties:
+        channel_id:
+          type: string
+          format: int64
+    GetTopChannelsResponse:
+      type: object
+      properties:
+        channel:
+          type: array
+          items:
+            $ref: '#/components/schemas/Channel'
+        end:
+          type: boolean
+          description: Whether the server has returned all available channels.
+    GetServersRequest:
+      type: object
+      properties:
+        start_server_id:
+          type: string
+          format: int64
+          description: The server ID from which to start listing.
+        max_results:
+          type: string
+          format: int64
+    ChannelData:
+      type: object
+      properties:
+        state:
+          type: object
+          properties:
+            state:
+              type: string
+              enum:
+              - UNKNOWN
+              - IDLE
+              - CONNECTING
+              - READY
+              - TRANSIENT_FAILURE
+              - SHUTDOWN
+        target:
+          type: string
+          description: The target URI this channel is connecting to.
+        trace:
+          type: object
+          properties:
+            num_events_logged:
+              type: string
+              format: int64
+            events:
+              type: array
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  severity:
+                    type: string
+                    enum:
+                    - CT_UNKNOWN
+                    - CT_INFO
+                    - CT_WARNING
+                    - CT_ERROR
+                  timestamp:
+                    type: string
+                    format: date-time
+        calls_started:
+          type: string
+          format: int64
+        calls_succeeded:
+          type: string
+          format: int64
+        calls_failed:
+          type: string
+          format: int64
+        last_call_started_timestamp:
+          type: string
+          format: date-time
+    GetServerSocketsRequest:
+      type: object
+      required:
+      - server_id
+      properties:
+        server_id:
+          type: string
+          format: int64
+        start_socket_id:
+          type: string
+          format: int64
+        max_results:
+          type: string
+          format: int64
+    GetServersResponse:
+      type: object
+      properties:
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+        end:
+          type: boolean
+    SubchannelRef:
+      type: object
+      properties:
+        subchannel_id:
+          type: string
+          format: int64
+        name:
+          type: string
+    ChannelRef:
+      type: object
+      properties:
+        channel_id:
+          type: string
+          format: int64
+        name:
+          type: string
     Server:
       type: object
       properties:
@@ -164,22 +292,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SocketRef'
-    SocketRef:
+    GetChannelResponse:
       type: object
       properties:
-        socket_id:
-          type: string
-          format: int64
-        name:
-          type: string
-    GetChannelRequest:
-      type: object
-      required:
-      - channel_id
-      properties:
-        channel_id:
-          type: string
-          format: int64
+        channel:
+          $ref: '#/components/schemas/Channel'
     GetServerSocketsResponse:
       type: object
       properties:
@@ -189,123 +306,6 @@ components:
             $ref: '#/components/schemas/SocketRef'
         end:
           type: boolean
-    GetTopChannelsResponse:
-      type: object
-      properties:
-        channel:
-          type: array
-          items:
-            $ref: '#/components/schemas/Channel'
-        end:
-          type: boolean
-          description: Whether the server has returned all available channels.
-    ChannelRef:
-      type: object
-      properties:
-        channel_id:
-          type: string
-          format: int64
-        name:
-          type: string
-    GetServersResponse:
-      type: object
-      properties:
-        server:
-          type: array
-          items:
-            $ref: '#/components/schemas/Server'
-        end:
-          type: boolean
-    GetChannelResponse:
-      type: object
-      properties:
-        channel:
-          $ref: '#/components/schemas/Channel'
-    GetServersRequest:
-      type: object
-      properties:
-        start_server_id:
-          type: string
-          format: int64
-          description: The server ID from which to start listing.
-        max_results:
-          type: string
-          format: int64
-    SubchannelRef:
-      type: object
-      properties:
-        subchannel_id:
-          type: string
-          format: int64
-        name:
-          type: string
-    GetServerSocketsRequest:
-      type: object
-      required:
-      - server_id
-      properties:
-        server_id:
-          type: string
-          format: int64
-        start_socket_id:
-          type: string
-          format: int64
-        max_results:
-          type: string
-          format: int64
-    ChannelData:
-      type: object
-      properties:
-        state:
-          type: object
-          properties:
-            state:
-              type: string
-              enum:
-              - UNKNOWN
-              - IDLE
-              - CONNECTING
-              - READY
-              - TRANSIENT_FAILURE
-              - SHUTDOWN
-        target:
-          type: string
-          description: The target URI this channel is connecting to.
-        trace:
-          type: object
-          properties:
-            num_events_logged:
-              type: string
-              format: int64
-            events:
-              type: array
-              items:
-                type: object
-                properties:
-                  description:
-                    type: string
-                  severity:
-                    type: string
-                    enum:
-                    - CT_UNKNOWN
-                    - CT_INFO
-                    - CT_WARNING
-                    - CT_ERROR
-                  timestamp:
-                    type: string
-                    format: date-time
-        calls_started:
-          type: string
-          format: int64
-        calls_succeeded:
-          type: string
-          format: int64
-        calls_failed:
-          type: string
-          format: int64
-        last_call_started_timestamp:
-          type: string
-          format: date-time
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/

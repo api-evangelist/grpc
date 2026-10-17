@@ -62,12 +62,6 @@ paths:
                 $ref: '#/components/schemas/HealthCheckResponse'
 components:
   schemas:
-    HealthCheckRequest:
-      type: object
-      properties:
-        service:
-          type: string
-          description: The fully-qualified service name to check. An empty string or omitted value checks the overall server health.
     HealthCheckResponse:
       type: object
       required:
@@ -81,6 +75,12 @@ components:
           - NOT_SERVING
           - SERVICE_UNKNOWN
           description: The health status of the requested service.
+    HealthCheckRequest:
+      type: object
+      properties:
+        service:
+          type: string
+          description: The fully-qualified service name to check. An empty string or omitted value checks the overall server health.
 externalDocs:
   description: gRPC Documentation
   url: https://grpc.io/docs/
