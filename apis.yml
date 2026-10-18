@@ -109,6 +109,10 @@ apis:
   - type: AsyncAPI
     url: asyncapi.yml
   tags:
+  - Health Checks
+  - Load Balancing
+  - Observability
+  tags_raw:
   - Health Checking
   - Load Balancing
   - Observability
@@ -154,6 +158,8 @@ apis:
     gRPC Health Checking Protocol endpoints for monitoring service availability and readiness.
   humanURL: https://grpc.io/docs/platforms/web/
   tags:
+  - Health Checks
+  tags_raw:
   - Health Checking
   properties:
   - type: OpenAPI
