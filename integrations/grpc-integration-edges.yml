@@ -8,6 +8,9 @@ checked:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
 - https://www.bestpractices.dev/en/projects.json
 - https://www.bestpractices.dev/en/projects.json?page=N
+- https://buf.build/buf.registry.module.v1.ModuleService/ListModules
+- https://buf.build/buf.registry.owner.v1.OwnerService/GetOwners
+- https://buf.build/explore
 marketplace_apps: []
 edges:
 - partner_name: OpenTelemetry
@@ -70,6 +73,46 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
+- partner_name: Buf Schema Registry (BSR) public modules
+  partner: buf
+  partner_match: register-name
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: third-party
+  evidence: https://buf.build/grpc
+  category: Protocol Buffers schema publishing (BSR)
+  contract_reference:
+    register: Buf Schema Registry (BSR) public modules
+    spec_file: null
+    standard: Protocol Buffers
+    role: schema-publisher
+    registrations:
+    - registered_name: grpc
+      register_status: public-modules
+      evidence_url: https://buf.build/grpc
+      matched_domain: null
+      matched_by: register-name
+      register_name_note: register-name 'grpc' = grpc; wikidata P856 grpc.com, grpc.io agrees or unheld
+    modules:
+    - module: buf.build/grpc/grpc
+      state: active
+      lapsed: false
+      created: '2022-09-06'
+    signal_note: 'participation only: the owner publishes Protocol Buffers schema modules on the public BSR; a listing
+      is not conformance (no certified_products)'
+    detected_by: sweep-buf-schema-registry.py
+    detected: '2026-10-23'
+    matched_by: register-name
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-buf-schema-registry.py
+  first_seen: '2026-10-23'
+  badges:
+  - BSR official organization
+  publisher_verified:
+  - BSR official organization
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
