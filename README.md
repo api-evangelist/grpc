@@ -1,4 +1,4 @@
-# gRPC (grpc)
+# gRPC
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,113 +66,126 @@
 
 gRPC is a high-performance, open-source universal RPC framework that uses HTTP/2 for transport, Protocol Buffers as the interface description language, and provides features such as authentication, bidirectional streaming and flow control, blocking or nonblocking bindings, and cancellation and timeouts. Originally developed at Google, it is now a CNCF project.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/grpc/refs/heads/main/apis.yml)
+**Areas:** CNCF · HTTP/2 · Microservices · Protocol Buffers · RPC
 
-## Scope
+## gRPC on APIs.io
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+Everything profiled for gRPC is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/grpc/](https://apis.io/providers/grpc/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (7)
 
- - RPC, Protocol Buffers, HTTP/2, Microservices, CNCF
+- [gRPC Core Framework](https://apis.io/apis/grpc/grpc-core/) — The gRPC core framework defines the RPC protocol, service definition format using Protocol Buffers, and the fundamental call lifecycle including unary,…
+- [Protocol Buffers Service Definition Schema](https://apis.io/apis/grpc/protobuf-service-definition/) — JSON Schema for Protocol Buffers service definition format (.proto files). Describes the structure of gRPC service declarations, RPC methods, message types,…
+- [gRPC Health Checking Service](https://apis.io/apis/grpc/grpc-health-checking/) — The gRPC Health Checking Protocol defines a standard service that gRPC servers implement to expose health status information to clients and load balancers.…
+- [gRPC Server Reflection](https://apis.io/apis/grpc/grpc-server-reflection/) — The gRPC Server Reflection Protocol allows gRPC servers to declare the protobuf-defined APIs they export over a standardized RPC service, including all…
+- [gRPC Channelz API](https://apis.io/apis/grpc/grpc-channelz-api/) — Channelz service for runtime introspection of gRPC channels, subchannels, servers, and sockets.
+- [gRPC Health Checking API](https://apis.io/apis/grpc/grpc-health-checking-api/) — gRPC Health Checking Protocol endpoints for monitoring service availability and readiness.
+- [gRPC Reflection API](https://apis.io/apis/grpc/grpc-reflection-api/) — Server Reflection service for runtime discovery of available gRPC services and their definitions.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025 
-- **Modified:** 2026-03-18 
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Collections (3)
 
-### gRPC-Web Proxy API
-OpenAPI specification for gRPC-Web proxy endpoints covering health checking, server reflection, and channelz introspection services exposed over HTTP for browser-based and REST clients.
+Postman and Open Collection request collections.
 
-**Human URL:** [https://grpc.io/docs/platforms/web/](https://grpc.io/docs/platforms/web/)
+- [gRPC-Web Proxy Channelz API](https://apis.io/collections/grpc/open-grpc-channelz-api/)
+- [gRPC-Web Proxy Health Checking API](https://apis.io/collections/grpc/open-grpc-health-checking-api/)
+- [gRPC-Web Proxy Reflection API](https://apis.io/collections/grpc/open-grpc-reflection-api/)
 
+#### Governance rules (1)
 
-#### Tags:
+Spectral rulesets for the provider's contracts.
 
- - Health Checking, Reflection, Channelz, gRPC-Web
+- [gRPC — jsonschema rules](https://apis.io/rules/grpc/grpc-jsonschema-spectral-rules/)
 
-#### Properties
+#### Security (1)
 
-- [OpenAPI](openapi.yml)
-- [Documentation](https://grpc.io/docs/platforms/web/)
-- [Reference](https://grpc.io/docs/platforms/web/basics/)
-- [JSONSchema](json-schema.yml)
+Authentication, trust centre, and vulnerability disclosure.
 
-### gRPC Core Framework
-The gRPC core framework defines the RPC protocol, service definition format using Protocol Buffers, and the fundamental call lifecycle including unary, server-streaming, client-streaming, and bidirectional streaming patterns over HTTP/2. It is the foundational specification implemented by all language-specific gRPC SDKs.
+- [Grpc Domain Security](https://apis.io/security/grpc/grpc-domain-security/)
 
-**Human URL:** [https://grpc.io/docs/what-is-grpc/introduction/](https://grpc.io/docs/what-is-grpc/introduction/)
+#### Plans and pricing (1)
 
+Published plans, tiers and prices.
 
-#### Tags:
+- [Grpc Plans Pricing](https://apis.io/plans/grpc/grpc-plans-pricing/)
 
- - RPC, Protocol Buffers, HTTP/2, Streaming
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://grpc.io/docs/what-is-grpc/introduction/)
-- [Reference](https://grpc.io/docs/what-is-grpc/core-concepts/)
-- [Authentication](https://grpc.io/docs/guides/auth/)
-- [GitHubRepository](https://github.com/grpc/grpc)
-- [JSONSchema](service-config-schema.json)
-- [JSONSchema](json-schema.yml)
-- [JSON-LD](context.jsonld)
+- [Grpc Rate Limits](https://apis.io/rate-limits/grpc/grpc-rate-limits/)
 
-### gRPC Health Checking Service
-The gRPC Health Checking Protocol defines a standard service that gRPC servers implement to expose health status information to clients and load balancers. Servers implement the Health service proto to report per-service readiness, and clients can configure automatic health-check-based connection management.
+#### FinOps (1)
 
-**Human URL:** [https://grpc.io/docs/guides/health-checking/](https://grpc.io/docs/guides/health-checking/)
+What the API costs to run, by operation.
 
+- [Grpc Finops](https://apis.io/finops/grpc/grpc-finops/)
 
-#### Tags:
+## Where to find this API
 
- - Health Checking, Observability, Load Balancing
-
-#### Properties
-
-- [Documentation](https://grpc.io/docs/guides/health-checking/)
-- [Reference](https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto)
-- [GitHubRepository](https://github.com/grpc/grpc-proto)
-- [AsyncAPI](asyncapi.yml)
-
-### gRPC Server Reflection
-The gRPC Server Reflection Protocol allows gRPC servers to declare the protobuf-defined APIs they export over a standardized RPC service, including all types referenced by request and response messages. This enables command-line debugging tools and clients to dynamically discover and invoke gRPC services without pre-compiled stubs.
-
-**Human URL:** [https://grpc.io/docs/guides/reflection/](https://grpc.io/docs/guides/reflection/)
-
-
-#### Tags:
-
- - Reflection, Service Discovery, Debugging
-
-#### Properties
-
-- [Documentation](https://grpc.io/docs/guides/reflection/)
-- [Reference](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)
-- [AsyncAPI](asyncapi.yml)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://grpc.io/)
 - [Documentation](https://grpc.io/docs/)
-- [Getting Started](https://grpc.io/docs/languages/)
-- [GitHub Organization](https://github.com/grpc)
+- [Getting started](https://grpc.io/docs/languages/)
+- [Changelog](https://github.com/grpc/grpc/releases)
 - [Blog](https://grpc.io/blog/)
-- [Community](https://grpc.io/community/)
-- [FAQ](https://grpc.io/docs/what-is-grpc/faq/)
-- [SDKs](https://grpc.io/docs/languages/)
-- [Change Log](https://github.com/grpc/grpc/releases)
-- [JSONSchema](json-schema.yml)
-- [JSONSchema](service-config-schema.json)
-- [AsyncAPI](asyncapi.yml)
-- [JSON-LD](context.jsonld)
+- [GitHub](https://github.com/grpc)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 42.6** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 55.3 |
+| Contract governance | 9.8 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 7.9 |
+
+**Agent readiness 21.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/grpc/](https://apis.io/providers/grpc/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for gRPC: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/grpc/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
